@@ -1,35 +1,45 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Postcards landing pages</title>
-    <script type="module" src="/src/scripts/main.js"></script>
-  </head>
-  <body class="theme-english">
-    <main class="mx-auto min-h-screen max-w-5xl px-5 py-12 sm:px-8">
-      <div class="rounded-[2rem] bg-white/90 p-8 shadow-[0_24px_70px_rgba(15,23,42,0.12)] ring-1 ring-slate-900/5 md:p-12">
-        <p class="eyebrow">Starter project</p>
-        <h1 class="mt-3 text-4xl font-semibold tracking-tight text-slate-900 sm:text-5xl">Postcards landing pages</h1>
-        <p class="mt-5 max-w-3xl text-lg leading-8 text-slate-700">
-          Multi-page Vite + Bun + Tailwind starter with standalone HTML files, repeated markup where needed, and shared styling in one Tailwind stylesheet.
-        </p>
 
-        <div class="mt-10 grid gap-4 sm:grid-cols-2">
-          <a class="button-primary" href="/english-conversation-hours.html">English Conversation Hours</a>
-          <a class="button-primary" href="/intermediate-conversation-hours.html">Intermediate Conversation Hours</a>
-          <a class="button-primary" href="/advanced-conversation-hours.html">Advanced Conversation Hours</a>
-          <a class="button-primary" href="/language-advising-study-abroad.html">Language Advising &amp; Study Abroad</a>
-          <a class="button-primary" href="/friends-without-frontiers.html">Friends without Frontiers</a>
-          <a class="button-primary" href="/conversation-exchange.html">Conversation Exchange</a>
-        </div>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Postcards landing pages</title>
+	<script type="module" src="./src/scripts/main.js"></script>
+	<link rel="preload" href="./assets/index.css" as="style">
+</head>
 
-        <div class="mt-10 rounded-[1.5rem] border border-slate-200 bg-slate-50 p-6">
-          <h2 class="text-xl font-semibold text-slate-900">Run it</h2>
-          <pre class="mt-4 overflow-x-auto rounded-xl bg-slate-900 p-4 text-sm text-slate-100"><code>bun install
+<body class="theme-english">
+	<main class="mx-auto min-h-screen max-w-5xl px-5 py-12 sm:px-8">
+		<div
+			class="rounded-[2rem] bg-white/90 p-8 shadow-[0_24px_70px_rgba(15,23,42,0.12)] ring-1 ring-slate-900/5 md:p-12">
+			<p class="eyebrow">Starter project</p>
+			<h1 class="mt-3 text-4xl font-semibold tracking-tight text-slate-900 sm:text-5xl">Postcards landing pages
+			</h1>
+			<p class="mt-5 max-w-3xl text-lg leading-8 text-slate-700">
+				Multi-page Vite + Bun + Tailwind starter with standalone HTML files, repeated markup where needed, and
+				shared
+				styling in one Tailwind stylesheet.
+			</p>
+
+			<div class="mt-10 grid gap-4 sm:grid-cols-2">
+				<a class="button-primary" href="english-conversation-hours.html">English Conversation Hours</a>
+				<a class="button-primary" href="intermediate-conversation-hours.html">Intermediate Conversation
+					Hours</a>
+				<a class="button-primary" href="advanced-conversation-hours.html">Advanced Conversation Hours</a>
+				<a class="button-primary" href="language-advising-study-abroad.html">Language Advising &amp; Study
+					Abroad</a>
+				<a class="button-primary" href="friends-without-frontiers.html">Friends without Frontiers</a>
+				<a class="button-primary" href="conversation-exchange.html">Conversation Exchange</a>
+			</div>
+
+			<div class="mt-10 rounded-[1.5rem] border border-slate-200 bg-slate-50 p-6">
+				<h2 class="text-xl font-semibold text-slate-900">Run it</h2>
+				<pre class="mt-4 overflow-x-auto rounded-xl bg-slate-900 p-4 text-sm text-slate-100"><code>bun install
 bun run dev</code></pre>
-        </div>
-      </div>
-    </main>
-  </body>
+			</div>
+		</div>
+	</main>
+</body>
+
 </html>

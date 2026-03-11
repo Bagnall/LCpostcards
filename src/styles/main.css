@@ -138,6 +138,13 @@
 		--theme-icon: rgba(255, 255, 255, 0.18);
 	}
 
+	.theme-study-abroad {
+		--theme-band: #245985;
+		--theme-hero: #f1e8ff;
+		--theme-hero-strong: #d6c4f5;
+		--theme-accent: #5a3fa3;
+	}
+
 	.page-shell {
 		@apply min-h-screen;
 		background-color: var(--page-bg);
