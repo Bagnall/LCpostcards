@@ -122,6 +122,19 @@
 		--theme-icon: rgba(255, 255, 255, 0.18);
 	}
 
+	.theme-advanced {
+		--theme-band: #9a3f57;
+		--theme-hero: #f4d6df;
+		--theme-hero-strong: #d68ca0;
+		--theme-accent: #9a3f57;
+		--theme-accent-strong: #6f2940;
+		--theme-card: #fffafb;
+		--theme-panel: #fff3f6;
+		--theme-keyword: rgba(255, 255, 255, 0.24);
+		--theme-figure: rgba(63, 20, 34, 0.82);
+		--theme-icon: rgba(255, 255, 255, 0.18);
+	}
+
 	.theme-friends {
 		--theme-band: #9a6a2f;
 		--theme-hero: #f0e0c8;
@@ -245,11 +258,11 @@
 @layer components {
 
 	.hero {
-		@apply px-4 py-8 md:py-10;
+		@apply py-8 md:py-10;
 	}
 
 	.hero-inner {
-		@apply max-w-6xl mx-auto grid gap-8 items-stretch lg:grid-cols-[1.1fr_0.9fr];
+		@apply max-w-6xl mx-auto w-full px-4 grid gap-8 items-stretch lg:grid-cols-[1.1fr_0.9fr];
 	}
 
 	.poster-stage {
@@ -512,8 +525,9 @@
 			linear-gradient(135deg, var(--theme-resource-panel) 0%, var(--theme-resource-panel-strong) 100%);
 	}
 
+	/* Neutralised so the resources panel aligns with the rest of the page */
 	.band-inner {
-		@apply max-w-6xl mx-auto px-4;
+		@apply w-full max-w-none m-0 p-0;
 	}
 
 	.resources-title {
