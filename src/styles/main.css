@@ -1,15 +1,31 @@
+/* =========================================================
+	Tailwind
+========================================================= */
+
 @import "tailwindcss";
+
+
+/* =========================================================
+	Base Layer
+	Global tokens, resets, focus styles
+========================================================= */
 
 @layer base {
 
 	:root {
+		/* Page */
 		--page-bg: #f5f7f8;
 		--surface: #ffffff;
+
+		/* Text */
 		--text-main: #1f2933;
 		--text-soft: #52606d;
+
+		/* Borders / shadows */
 		--border-soft: rgba(15, 23, 42, 0.08);
 		--shadow-soft: 0 24px 60px rgba(15, 23, 42, 0.12);
 
+		/* Default theme tokens */
 		--theme-band: #355b7a;
 		--theme-hero: #dbeaf6;
 		--theme-hero-strong: #9fc2df;
@@ -21,6 +37,7 @@
 		--theme-figure: rgba(15, 23, 42, 0.82);
 		--theme-icon: rgba(255, 255, 255, 0.22);
 
+		/* Resource section defaults */
 		--theme-resource-panel: #72a7d6;
 		--theme-resource-panel-strong: #5d98cd;
 		--theme-resource-heading: #ffffff;
@@ -44,7 +61,8 @@
 		color: inherit;
 		text-decoration: none;
 	}
-	
+
+	/* Accessibility */
 	a:focus-visible,
 	button:focus-visible,
 	.button-primary:focus-visible,
@@ -63,6 +81,11 @@
 		max-width: 100%;
 	}
 }
+
+
+/* =========================================================
+	Theme Variants
+========================================================= */
 
 @layer components {
 
@@ -138,12 +161,21 @@
 		--theme-icon: rgba(255, 255, 255, 0.18);
 	}
 
+	/* Kept in case it is referenced anywhere */
 	.theme-study-abroad {
 		--theme-band: #245985;
 		--theme-hero: #f1e8ff;
 		--theme-hero-strong: #d6c4f5;
 		--theme-accent: #5a3fa3;
 	}
+}
+
+
+/* =========================================================
+	Page Shell
+========================================================= */
+
+@layer components {
 
 	.page-shell {
 		@apply min-h-screen;
@@ -153,6 +185,18 @@
 	.page-frame {
 		@apply min-h-screen flex flex-col;
 	}
+
+	.content-container {
+		@apply max-w-6xl mx-auto w-full px-4;
+	}
+}
+
+
+/* =========================================================
+	Header / Footer
+========================================================= */
+
+@layer components {
 
 	.brand-band {
 		@apply text-white;
@@ -171,14 +215,6 @@
 		padding-bottom: 1.5rem;
 	}
 
-	.footer-tagline {
-		@apply font-medium;
-	}
-
-	.footer-email {
-		@apply underline underline-offset-2 opacity-90 hover:opacity-100 transition-opacity;
-	}
-
 	.footer-bar {
 		@apply mt-auto py-6 text-white;
 		background-color: var(--theme-band);
@@ -188,9 +224,25 @@
 		@apply max-w-6xl mx-auto px-4 flex flex-col gap-2 text-sm md:flex-row md:items-center md:justify-between;
 	}
 
+	.footer-tagline {
+		@apply font-medium;
+	}
+
+	.footer-email {
+		@apply underline underline-offset-2 opacity-90 hover:opacity-100 transition-opacity;
+	}
+
 	.footer-link {
 		@apply underline underline-offset-2 opacity-90 hover:opacity-100 transition-opacity;
 	}
+}
+
+
+/* =========================================================
+	Hero / Poster Stage
+========================================================= */
+
+@layer components {
 
 	.hero {
 		@apply px-4 py-8 md:py-10;
@@ -219,6 +271,36 @@
 	.keyword-cloud span {
 		white-space: nowrap;
 	}
+
+	.content-card {
+		@apply self-center rounded-[2rem] p-6 md:p-8 lg:p-10 shadow-xl border;
+		background-color: var(--theme-card);
+		border-color: var(--border-soft);
+		box-shadow: var(--shadow-soft);
+	}
+
+	.eyebrow {
+		@apply uppercase tracking-[0.18em] text-xs md:text-sm font-semibold mb-3;
+		color: var(--theme-accent);
+	}
+
+	.page-title {
+		@apply text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight;
+		color: var(--theme-accent-strong);
+	}
+
+	.page-summary {
+		@apply mt-4 text-base md:text-lg leading-7;
+		color: var(--text-soft);
+	}
+}
+
+
+/* =========================================================
+	Decorative Figures / Icons
+========================================================= */
+
+@layer components {
 
 	.silhouette-group {
 		@apply absolute left-6 bottom-0 md:left-10;
@@ -300,28 +382,14 @@
 		right: 1.3rem;
 		bottom: 1.7rem;
 	}
+}
 
-	.content-card {
-		@apply self-center rounded-[2rem] p-6 md:p-8 lg:p-10 shadow-xl border;
-		background-color: var(--theme-card);
-		border-color: var(--border-soft);
-		box-shadow: var(--shadow-soft);
-	}
 
-	.eyebrow {
-		@apply uppercase tracking-[0.18em] text-xs md:text-sm font-semibold mb-3;
-		color: var(--theme-accent);
-	}
+/* =========================================================
+	Detail Grid / Buttons
+========================================================= */
 
-	.page-title {
-		@apply text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight;
-		color: var(--theme-accent-strong);
-	}
-
-	.page-summary {
-		@apply mt-4 text-base md:text-lg leading-7;
-		color: var(--text-soft);
-	}
+@layer components {
 
 	.detail-grid {
 		@apply mt-6 grid gap-3 sm:grid-cols-2;
@@ -366,29 +434,17 @@
 	.button-secondary:hover {
 		background-color: rgba(255, 255, 255, 0.6);
 	}
+}
+
+
+/* =========================================================
+	Main Content Panels
+========================================================= */
+
+@layer components {
 
 	.main-sections {
 		@apply max-w-6xl mx-auto w-full px-4 pb-6 md:pb-8 grid gap-6 lg:grid-cols-[1.25fr_0.75fr];
-	}
-
-	.content-container {
-		@apply max-w-6xl mx-auto w-full px-4;
-	}
-
-	.resources-section {
-		@apply max-w-6xl mx-auto w-full px-4 pb-10 md:pb-14 mt-2 md:mt-4;
-	}
-
-	.resources-panel {
-		@apply rounded-[2rem] px-6 py-8 md:px-10 md:py-10 shadow-xl;
-
-		background:
-			linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0)),
-			linear-gradient(135deg, var(--theme-resource-panel) 0%, var(--theme-resource-panel-strong) 100%);
-	}
-
-	.band-inner {
-		@apply max-w-6xl mx-auto px-4;
 	}
 
 	.panel {
@@ -436,16 +492,28 @@
 		@apply mt-3 leading-7;
 		color: var(--text-soft);
 	}
+}
+
+
+/* =========================================================
+	Resources Section
+========================================================= */
+
+@layer components {
 
 	.resources-section {
-		@apply w-full py-10 md:py-14;
+		@apply max-w-6xl mx-auto w-full px-4 pb-10 md:pb-14 mt-2 md:mt-4;
 	}
 
 	.resources-panel {
 		@apply rounded-[2rem] px-6 py-8 md:px-10 md:py-10 shadow-xl;
 		background:
-			linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0)),
+			linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0)),
 			linear-gradient(135deg, var(--theme-resource-panel) 0%, var(--theme-resource-panel-strong) 100%);
+	}
+
+	.band-inner {
+		@apply max-w-6xl mx-auto px-4;
 	}
 
 	.resources-title {
@@ -459,6 +527,10 @@
 
 	.resource-item {
 		@apply flex items-start gap-4 md:gap-5;
+	}
+
+	.resource-copy {
+		@apply min-w-0;
 	}
 
 	.resource-icon {
@@ -480,10 +552,6 @@
 		clip-path: polygon(0 0, 100% 0, 0 100%);
 	}
 
-	.resource-copy {
-		@apply min-w-0;
-	}
-
 	.resource-name {
 		@apply text-2xl md:text-3xl font-semibold leading-tight;
 		color: var(--theme-resource-title);
@@ -500,6 +568,51 @@
 	}
 }
 
+
+/* =========================================================
+	Advising Artwork
+========================================================= */
+
+@layer components {
+
+	.poster-stage-advising {
+		display: flex;
+		align-items: flex-end;
+		justify-content: center;
+	}
+
+	.advising-artwork {
+		position: absolute;
+		left: 1.5rem;
+		right: 1.5rem;
+		bottom: 0;
+		display: flex;
+		justify-content: center;
+		align-items: flex-end;
+		height: 82%;
+		z-index: 2;
+	}
+
+	.advising-art-image {
+		width: min(30rem, 100%);
+		height: auto;
+		object-fit: contain;
+		object-position: bottom center;
+		filter: drop-shadow(0 12px 24px rgba(15, 23, 42, 0.18));
+	}
+
+	.theme-advising .poster-stage {
+		background:
+			linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0)),
+			linear-gradient(135deg, var(--theme-hero) 0%, var(--theme-hero-strong) 100%);
+	}
+}
+
+
+/* =========================================================
+	Utilities
+========================================================= */
+
 @layer utilities {
 
 	.bg-theme-band {
@@ -514,6 +627,11 @@
 		color: var(--theme-accent-strong);
 	}
 }
+
+
+/* =========================================================
+	Responsive: Tablet
+========================================================= */
 
 @media (max-width: 1023px) {
 
@@ -532,6 +650,11 @@
 	}
 }
 
+
+/* =========================================================
+	Responsive: Mobile
+========================================================= */
+
 @media (max-width: 767px) {
 
 	.hero {
@@ -549,6 +672,16 @@
 	.keyword-cloud {
 		@apply gap-x-4 gap-y-2 p-6;
 		font-size: 0.95rem;
+	}
+
+	.advising-artwork {
+		left: 1rem;
+		right: 1rem;
+		height: 76%;
+	}
+
+	.advising-art-image {
+		width: min(20rem, 100%);
 	}
 
 	.silhouette-group {
