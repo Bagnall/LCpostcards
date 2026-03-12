@@ -198,10 +198,6 @@
 	.page-frame {
 		@apply min-h-screen flex flex-col;
 	}
-
-	.content-container {
-		@apply max-w-6xl mx-auto w-full px-4;
-	}
 }
 
 
@@ -226,15 +222,6 @@
 		color: white;
 		padding-top: 1.5rem;
 		padding-bottom: 1.5rem;
-	}
-
-	.footer-bar {
-		@apply mt-auto py-6 text-white;
-		background-color: var(--theme-band);
-	}
-
-	.footer-grid {
-		@apply max-w-6xl mx-auto px-4 flex flex-col gap-2 text-sm md:flex-row md:items-center md:justify-between;
 	}
 
 	.footer-tagline {
@@ -719,10 +706,6 @@
 
 	.main-sections {
 		@apply grid-cols-1;
-	}
-
-	.footer-grid {
-		@apply text-center;
 	}
 
 	.resources-title {
