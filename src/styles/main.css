@@ -303,7 +303,7 @@
 @layer components {
 
 	.silhouette-group {
-		@apply absolute left-6 bottom-0 md:left-10;
+		@apply absolute left-0 bottom-0 md:left-0;
 		width: min(28rem, 70%);
 		height: 72%;
 	}
@@ -576,30 +576,33 @@
 
 @layer components {
 
+	/* Poster stage alignment */
 	.poster-stage-advising {
-		display: flex;
-		align-items: flex-end;
-		justify-content: center;
+		position: relative;
+		overflow: hidden;
 	}
 
-	.advising-artwork {
+	/* Globe anchored bottom-left */
+	.advising-globe {
 		position: absolute;
-		left: 1.5rem;
-		right: 1.5rem;
+		left: 0;
 		bottom: 0;
+		width: min(26rem, 70%);
+		height: 80%;
 		display: flex;
-		justify-content: center;
 		align-items: flex-end;
-		height: 82%;
-		z-index: 2;
+		justify-content: flex-start;
+		pointer-events: none;
+		z-index: 1;
 	}
 
-	.advising-art-image {
-		width: min(30rem, 100%);
+	.advising-globe-image {
+		width: 100%;
 		height: auto;
 		object-fit: contain;
-		object-position: bottom center;
-		filter: drop-shadow(0 12px 24px rgba(15, 23, 42, 0.18));
+		object-position: bottom left;
+		opacity: 0.95;
+		filter: drop-shadow(0 18px 32px rgba(15, 23, 42, 0.2));
 	}
 
 	.theme-advising .poster-stage {
@@ -675,22 +678,23 @@
 		font-size: 0.95rem;
 	}
 
-	.advising-artwork {
-		left: 1rem;
-		right: 1rem;
-		height: 76%;
+	.advising-globe {
+		width: min(18rem, 85%);
+		height: 70%;
+		left: -0.5rem; /* slight bleed like other artwork */
 	}
-
-	.advising-art-image {
-		width: min(20rem, 100%);
+	
+	.advising-globe-image {
+		opacity: 0.9;
+		mix-blend-mode: multiply;
 	}
 
 	.silhouette-group {
-		left: 1rem;
-		width: 16rem;
+		left: 0;
+		/* width: 16rem;
 		height: 62%;
 		transform: scale(0.7);
-		transform-origin: left bottom;
+		transform-origin: left bottom; */
 	}
 
 	.conversation-icon {
