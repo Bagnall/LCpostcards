@@ -66,11 +66,8 @@
 		max-width: 100%;
 	}
 
-	/* Accessibility */
 	a:focus-visible,
-	button:focus-visible,
-	.button-primary:focus-visible,
-	.button-secondary:focus-visible {
+	button:focus-visible {
 		outline: 3px solid #111827;
 		outline-offset: 3px;
 		border-radius: 0.5rem;
@@ -170,58 +167,19 @@
 
 
 /* =========================================================
-	Layout Shell
+	Footer
 ========================================================= */
 
 @layer components {
 
-	.page-shell {
-		@apply min-h-screen;
-		background-color: var(--page-bg);
-	}
-
-	.page-frame {
-		@apply min-h-screen flex flex-col;
-	}
-
-	.site-header,
 	.site-footer {
 		background-color: var(--theme-band);
 		color: white;
-	}
-
-	.site-footer {
 		@apply py-6;
 	}
-}
 
-
-/* =========================================================
-	Footer (supports both simple and LCvite-style variants)
-========================================================= */
-
-@layer components {
-
-	/* Simple footer still used by some pages */
-	.footer-tagline {
-		@apply text-base md:text-lg italic leading-6 m-0;
-	}
-
-	.footer-email,
-	.developed a,
-	.license-text a {
-		@apply underline underline-offset-2;
-	}
-
-	.copy,
-	.developed,
-	.license-text {
-		@apply text-sm leading-6 m-0;
-	}
-
-	/* Rich footer */
 	.footer-container {
-		@apply max-w-6xl mx-auto px-4 grid gap-6 items-center;
+		@apply max-w-6xl mx-auto grid gap-6 px-4 items-center;
 		grid-template-areas:
 			"uclogo square-logos"
 			"social-logos social-logos"
@@ -247,14 +205,26 @@
 		grid-area: copyright;
 	}
 
-	/* UCLC logo switching */
+	.footer-tagline {
+		@apply m-0 text-base italic leading-6 md:text-lg;
+	}
+
+	.copy,
+	.developed {
+		@apply m-0 text-sm leading-6;
+	}
+
+	.developed a {
+		@apply underline underline-offset-2;
+	}
+
 	.uclogo .logo {
 		display: none;
 		max-width: 100%;
 		height: auto;
 	}
 
-	/* Mobile first: stacked */
+	/* Mobile first: stacked logo */
 	.uclogo .vertical.white {
 		display: block;
 		height: 5.5rem;
@@ -302,101 +272,12 @@
 
 
 /* =========================================================
-	Hero / Poster Stage
+	Hero Artwork
 ========================================================= */
 
 @layer components {
 
-	.hero {
-		@apply py-8 md:py-10;
-	}
-
-	.hero-inner {
-		@apply mx-auto grid w-full max-w-6xl items-stretch gap-8 px-4 lg:grid-cols-[1.1fr_0.9fr];
-	}
-
-	.poster-stage {
-		@apply relative overflow-hidden rounded-[2rem] shadow-xl;
-		min-height: 24rem;
-		background:
-			linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0)),
-			linear-gradient(135deg, var(--theme-hero) 0%, var(--theme-hero-strong) 100%);
-	}
-
-	.keyword-cloud {
-		@apply absolute inset-0 flex flex-wrap content-start gap-x-6 gap-y-3 p-8 select-none md:p-10;
-		color: var(--theme-keyword);
-		font-size: clamp(1rem, 1.8vw, 1.5rem);
-		font-weight: 600;
-		line-height: 1;
-		text-transform: lowercase;
-	}
-
-	.keyword-cloud span {
-		white-space: nowrap;
-	}
-
-	.content-card {
-		@apply self-center rounded-[2rem] border p-6 shadow-xl md:p-8 lg:p-10;
-		background-color: var(--theme-card);
-		border-color: var(--border-soft);
-		box-shadow: var(--shadow-soft);
-	}
-
-	.eyebrow {
-		@apply mb-3 text-xs font-semibold uppercase tracking-[0.18em] md:text-sm;
-		color: var(--theme-accent);
-	}
-
-	.page-title {
-		@apply text-3xl font-semibold leading-tight md:text-4xl lg:text-5xl;
-		color: var(--theme-accent-strong);
-	}
-
-	.page-summary {
-		@apply mt-4 text-base leading-7 md:text-lg;
-		color: var(--text-soft);
-	}
-
-	.conversation-icon {
-		@apply absolute right-8 bottom-8 rounded-full;
-		width: 7rem;
-		height: 7rem;
-		background-color: var(--theme-icon);
-		backdrop-filter: blur(1px);
-	}
-
-	.conversation-icon::before,
-	.conversation-icon::after {
-		content: "";
-		position: absolute;
-		border-radius: 9999px;
-		background-color: rgba(255, 255, 255, 0.72);
-	}
-
-	.conversation-icon::before {
-		width: 2.6rem;
-		height: 2.6rem;
-		left: 1.3rem;
-		top: 1.6rem;
-	}
-
-	.conversation-icon::after {
-		width: 1.8rem;
-		height: 1.8rem;
-		right: 1.3rem;
-		bottom: 1.7rem;
-	}
-}
-
-
-/* =========================================================
-	Hero Artwork (old CSS silhouettes + SVG artwork)
-========================================================= */
-
-@layer components {
-
-	/* Older CSS-built silhouettes still needed by some pages */
+	/* Keep in case any page still uses CSS-built silhouettes */
 	.silhouette-group {
 		@apply absolute left-6 bottom-0 md:left-10;
 		width: min(28rem, 70%);
@@ -448,8 +329,8 @@
 		height: 13rem;
 	}
 
-	/* Globe artwork */
-	.poster-stage-advising {
+	.poster-stage-advising,
+	.poster-stage-conversation {
 		@apply relative overflow-hidden;
 	}
 
@@ -474,11 +355,6 @@
 		object-position: bottom left;
 		opacity: 0.98;
 		filter: drop-shadow(0 14px 28px rgba(15, 23, 42, 0.14));
-	}
-
-	/* Conversation SVG artwork */
-	.poster-stage-conversation {
-		@apply relative overflow-hidden;
 	}
 
 	.conversation-silhouettes {
@@ -506,182 +382,14 @@
 
 
 /* =========================================================
-	Cards, Buttons, Main Content
-========================================================= */
-
-@layer components {
-
-	.detail-grid {
-		@apply mt-6 grid gap-3 sm:grid-cols-2;
-	}
-
-	.detail-card {
-		@apply rounded-2xl border p-4;
-		background-color: var(--theme-panel);
-		border-color: var(--border-soft);
-	}
-
-	.detail-label {
-		@apply text-xs font-semibold uppercase tracking-[0.16em];
-		color: var(--theme-accent);
-	}
-
-	.detail-value {
-		@apply mt-2 text-sm font-medium md:text-base;
-		color: var(--text-main);
-	}
-
-	.cta-row {
-		@apply mt-8 flex flex-col gap-3 sm:flex-row;
-	}
-
-	.button-primary {
-		@apply inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold text-white transition-transform duration-150 hover:-translate-y-0.5 md:text-base;
-		background-color: var(--theme-accent);
-	}
-
-	.button-primary:hover {
-		background-color: var(--theme-accent-strong);
-	}
-
-	.button-secondary {
-		@apply inline-flex items-center justify-center rounded-full border px-5 py-3 text-sm font-semibold transition-colors md:text-base;
-		color: var(--theme-accent-strong);
-		border-color: var(--theme-accent);
-		background-color: transparent;
-	}
-
-	.button-secondary:hover {
-		background-color: rgba(255, 255, 255, 0.6);
-	}
-
-	.main-sections {
-		@apply mx-auto grid w-full max-w-6xl gap-6 px-4 pb-6 md:pb-8 lg:grid-cols-[1.25fr_0.75fr];
-	}
-
-	.panel {
-		@apply rounded-[2rem] border p-6 shadow-sm md:p-8;
-		background-color: var(--surface);
-		border-color: var(--border-soft);
-	}
-
-	.panel h2 {
-		@apply text-2xl font-semibold md:text-3xl;
-		color: var(--theme-accent-strong);
-	}
-
-	.panel p,
-	.mini-stat p {
-		@apply text-base leading-7 md:text-lg;
-		color: var(--text-soft);
-	}
-
-	.bullet-list {
-		@apply mt-6 space-y-3 pl-5;
-		color: var(--text-main);
-		list-style: disc;
-	}
-
-	.bullet-list li {
-		@apply leading-7;
-	}
-
-	.aside-stack {
-		@apply flex flex-col gap-6;
-	}
-
-	.mini-stat {
-		@apply rounded-[2rem] border p-6 shadow-sm;
-		background-color: var(--theme-panel);
-		border-color: var(--border-soft);
-	}
-
-	.mini-stat h3 {
-		@apply text-lg font-semibold md:text-xl;
-		color: var(--theme-accent-strong);
-	}
-}
-
-
-/* =========================================================
-	Resources Section
-========================================================= */
-
-@layer components {
-
-	.resources-section {
-		@apply mx-auto mt-2 w-full max-w-6xl px-4 pb-10 md:mt-4 md:pb-14;
-	}
-
-	.resources-panel {
-		@apply rounded-[2rem] px-6 py-8 shadow-xl md:px-10 md:py-10;
-		background:
-			linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0)),
-			linear-gradient(135deg, var(--theme-resource-panel) 0%, var(--theme-resource-panel-strong) 100%);
-	}
-
-	.band-inner {
-		@apply m-0 w-full max-w-none p-0;
-	}
-
-	.resources-title {
-		@apply text-2xl font-semibold leading-tight md:text-4xl;
-		color: var(--theme-resource-heading);
-	}
-
-	.resource-list {
-		@apply mt-6 space-y-6 md:space-y-7;
-	}
-
-	.resource-item {
-		@apply flex items-start gap-4 md:gap-5;
-	}
-
-	.resource-copy {
-		@apply min-w-0;
-	}
-
-	.resource-icon {
-		@apply relative mt-1 shrink-0;
-		width: 1.6rem;
-		height: 1.3rem;
-		background-color: var(--theme-resource-icon);
-		border-radius: 0.45rem;
-	}
-
-	.resource-icon::after {
-		content: "";
-		position: absolute;
-		left: 0.35rem;
-		bottom: -0.3rem;
-		width: 0.65rem;
-		height: 0.65rem;
-		background-color: var(--theme-resource-icon);
-		clip-path: polygon(0 0, 100% 0, 0 100%);
-	}
-
-	.resource-name {
-		@apply text-2xl font-semibold leading-tight md:text-3xl;
-		color: var(--theme-resource-title);
-	}
-
-	.resource-description {
-		@apply mt-2 text-base leading-relaxed md:text-lg;
-		color: var(--theme-resource-text);
-		max-width: 60ch;
-	}
-
-	.text-balance {
-		text-wrap: balance;
-	}
-}
-
-
-/* =========================================================
 	Utilities
 ========================================================= */
 
 @layer utilities {
+
+	.text-balance {
+		text-wrap: balance;
+	}
 
 	.bg-theme-band {
 		background-color: var(--theme-band);
@@ -749,10 +457,6 @@
 
 @media (max-width: 1023px) {
 
-	.poster-stage {
-		min-height: 20rem;
-	}
-
 	.resource-description {
 		font-size: 1.5rem;
 		line-height: 1.35;
@@ -761,36 +465,12 @@
 
 @media (max-width: 767px) {
 
-	.hero {
-		@apply py-6;
-	}
-
-	.hero-inner {
-		@apply grid-cols-1;
-	}
-
-	.poster-stage {
-		min-height: 20rem;
-	}
-
-	.keyword-cloud {
-		@apply gap-x-4 gap-y-2 p-6;
-		font-size: 0.95rem;
-	}
-
 	.silhouette-group {
 		left: 1rem;
 		width: 16rem;
 		height: 62%;
 		transform: scale(0.7);
 		transform-origin: left bottom;
-	}
-
-	.conversation-icon {
-		right: 1rem;
-		bottom: 1rem;
-		width: 5rem;
-		height: 5rem;
 	}
 
 	.conversation-silhouettes {
@@ -810,26 +490,5 @@
 	.advising-globe-image {
 		opacity: 0.9;
 		mix-blend-mode: multiply;
-	}
-
-	.content-card {
-		@apply rounded-[1.5rem];
-	}
-
-	.main-sections {
-		@apply grid-cols-1;
-	}
-
-	.resources-title {
-		font-size: 1.9rem;
-	}
-
-	.resource-name {
-		font-size: 1.6rem;
-	}
-
-	.resource-description {
-		font-size: 1.2rem;
-		line-height: 1.45;
 	}
 }
