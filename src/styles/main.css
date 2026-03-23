@@ -205,13 +205,12 @@
 	}
 
 	.footer-container {
-		@apply max-w-6xl mx-auto px-4 grid gap-6 items-start;
+		@apply max-w-6xl mx-auto px-4 grid gap-6 items-center;
 		grid-template-areas:
-			"uclogo"
-			"square-logos"
-			"social-logos"
-			"copyright";
-		grid-template-columns: 1fr;
+			"uclogo square-logos"
+			"social-logos social-logos"
+			"copyright copyright";
+		grid-template-columns: 1fr auto;
 	}
 
 	.uclogo {
@@ -310,8 +309,7 @@
 		.footer-container {
 			grid-template-areas:
 				"uclogo square-logos"
-				"social-logos social-logos"
-				"copyright copyright";
+				"copyright social-logos";
 			grid-template-columns: 1fr auto;
 			align-items: center;
 		}
@@ -333,6 +331,11 @@
 
 		.social-logos {
 			justify-self: end;
+			align-self: center;
+		}
+
+		.copyright {
+			align-self: center;
 		}
 	}
 
@@ -343,8 +346,8 @@
 			grid-template-areas:
 				"uclogo square-logos"
 				"copyright social-logos";
-			grid-template-columns: minmax(18rem, 1.3fr) 1fr;
-			align-items: start;
+			grid-template-columns: minmax(18rem, 1.3fr) auto;
+			align-items: center;
 		}
 
 		.uclogo .logo {
@@ -364,11 +367,11 @@
 
 		.social-logos {
 			justify-self: end;
-			align-self: start;
+			align-self: center;
 		}
 
 		.copyright {
-			align-self: end;
+			align-self: center;
 		}
 	}
 }
