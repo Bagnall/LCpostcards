@@ -239,9 +239,10 @@
 		height: auto;
 	}
 
-	.uclogo .horizontal.white {
+	/* Mobile first: stacked logo */
+	.uclogo .vertical.white {
 		display: block;
-		height: 3rem;
+		height: 5.5rem;
 		width: auto;
 	}
 
@@ -290,6 +291,10 @@
 	}
 
 	/* Footer text */
+	.footer-tagline {
+		@apply text-base md:text-lg italic leading-6 m-0;
+	}
+
 	.copy,
 	.developed {
 		@apply text-sm leading-6 m-0;
@@ -304,18 +309,30 @@
 
 		.footer-container {
 			grid-template-areas:
-				"uclogo uclogo"
-				"square-logos square-logos"
+				"uclogo square-logos"
 				"social-logos social-logos"
 				"copyright copyright";
-			grid-template-columns: 1fr 1fr;
-			align-items: start;
+			grid-template-columns: 1fr auto;
+			align-items: center;
+		}
+
+		.uclogo .vertical.white {
+			display: none;
 		}
 
 		.uclogo .horizontal.white {
 			display: block;
 			height: 3.4rem;
 			width: auto;
+		}
+
+		.square-logos {
+			justify-content: flex-end;
+			align-self: center;
+		}
+
+		.social-logos {
+			justify-self: end;
 		}
 	}
 
@@ -325,7 +342,6 @@
 		.footer-container {
 			grid-template-areas:
 				"uclogo square-logos"
-				"uclogo social-logos"
 				"copyright social-logos";
 			grid-template-columns: minmax(18rem, 1.3fr) 1fr;
 			align-items: start;
@@ -343,7 +359,7 @@
 
 		.square-logos {
 			justify-content: flex-end;
-			align-self: end;
+			align-self: center;
 		}
 
 		.social-logos {
@@ -356,6 +372,8 @@
 		}
 	}
 }
+
+
 /* =========================================================
 	Hero / Poster Stage
 ========================================================= */
@@ -749,6 +767,11 @@
 		min-height: 20rem;
 	}
 
+	.keyword-cloud {
+		@apply gap-x-4 gap-y-2 p-6;
+		font-size: 0.95rem;
+	}
+
 	.conversation-silhouettes {
 		left: -0.25rem;
 		bottom: 0;
@@ -764,11 +787,6 @@
 		object-position: bottom left;
 	}
 
-	.keyword-cloud {
-		@apply gap-x-4 gap-y-2 p-6;
-		font-size: 0.95rem;
-	}
-
 	.advising-globe {
 		left: -0.75rem;
 		bottom: -0.35rem;
@@ -779,19 +797,6 @@
 		opacity: 0.9;
 		mix-blend-mode: multiply;
 	}
-
-	/* .conversation-icon {
-		right: 1rem;
-		bottom: 1rem;
-		width: 5rem;
-		height: 5rem;
-	} */
-
-	/* .conversation-silhouettes {
-		left: -0.25rem;
-		width: min(18rem, 82%);
-		height: 68%;
-	} */
 
 	.content-card {
 		@apply rounded-[1.5rem];
