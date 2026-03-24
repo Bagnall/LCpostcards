@@ -196,6 +196,18 @@
 		@apply flex flex-wrap items-center justify-end gap-3;
 	}
 
+	.lclogo svg {
+		display: block;
+		width: 2.1rem;
+		height: 2.1rem;
+	}
+
+	.cam-social-media-icon svg {
+		display: block;
+		width: 1.2rem;
+		height: 1.2rem;
+	}		
+	
 	.social-logos {
 		grid-area: social-logos;
 		@apply flex w-full justify-end;
@@ -229,24 +241,6 @@
 		display: block;
 		height: 5.5rem;
 		width: auto;
-	}
-
-	.square-logo {
-		@apply flex h-14 w-14 items-center justify-center rounded-md;
-		border: 1px solid rgba(255, 255, 255, 0.18);
-		background-color: rgba(255, 255, 255, 0.04);
-	}
-
-	.square-logo .logo {
-		width: 2.1rem;
-		height: 2.1rem;
-	}
-
-	.square-logo svg,
-	.cam-social-media-icon svg {
-		display: block;
-		width: 100%;
-		height: 100%;
 	}
 
 	.cam-global-footer-links {
