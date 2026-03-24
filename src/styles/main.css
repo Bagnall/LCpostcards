@@ -179,7 +179,7 @@
 	}
 
 	.footer-container {
-		@apply max-w-6xl mx-auto grid gap-6 px-4 items-center;
+		@apply max-w-6xl mx-auto grid px-4 gap-6 items-center;
 		grid-template-areas:
 			"uclogo square-logos"
 			"social-logos social-logos"
@@ -417,7 +417,7 @@
 
 	.uclogo .horizontal.white {
 		display: block;
-		height: 3.4rem;
+		height: 3rem;
 		width: auto;
 	}
 
@@ -426,7 +426,9 @@
 			"uclogo square-logos"
 			"copyright social-logos";
 		grid-template-columns: 1fr auto;
-		align-items: center;
+		align-items: start;
+		row-gap: 0.75rem;
+		column-gap: 1.5rem;
 	}
 
 	.square-logos {
@@ -434,13 +436,15 @@
 		align-self: center;
 	}
 
-	.social-logos,
 	.copyright {
-		align-self: center;
+		align-self: start;
+		padding-top: 0.25rem;
 	}
 
 	.social-logos {
 		justify-self: end;
+		align-self: start;
+		padding-top: 0.25rem;
 	}
 }
 
@@ -448,18 +452,11 @@
 
 	.footer-container {
 		grid-template-columns: minmax(18rem, 1.3fr) auto;
+		row-gap: 1.5rem;
 	}
 
 	.uclogo .horizontal.white {
-		height: 3.75rem;
-	}
-}
-
-@media (max-width: 1023px) {
-
-	.resource-description {
-		font-size: 1.5rem;
-		line-height: 1.35;
+		height: 3.5rem;
 	}
 }
 
