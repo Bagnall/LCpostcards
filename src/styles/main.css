@@ -85,6 +85,26 @@
 ========================================================= */
 
 @layer components {
+	.theme-advanced {
+		--theme-band: #b5122b;
+
+		--theme-hero: #d63a4a;
+		--theme-hero-strong: #a60f25;
+
+		--theme-card: #f5f6f7; /* slightly cool grey like card */
+
+		--theme-accent: #b5122b;
+		--theme-accent-strong: #7f0d1d;
+
+		--theme-panel: #fdecee; /* very soft pink panel */
+
+		--theme-keyword: rgba(255, 255, 255, 0.18);
+
+		--text-main: #1f2937;
+		--text-soft: #4b5563;
+
+		--border-soft: rgba(0, 0, 0, 0.08);
+	}
 
 	.theme-english {
 		--theme-band: #1f4e79;
