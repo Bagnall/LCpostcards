@@ -197,7 +197,7 @@
 		</main>
 
 		<!-- FOOTER -->
-		<footer class="site-footer mt-auto" aria-label="Friends without Frontiers site footer">
+		<footer class="site-footer mt-auto pb-16" aria-label="Friends without Frontiers site footer">
 			<div class="footer-container">
 				<div class="uclogo">
 					<a href="https://www.langcen.cam.ac.uk/" target="_blank" rel="noopener noreferrer">
@@ -302,6 +302,28 @@
 			</div>
 		</footer>
 	</div>
+	<script src="https://cc.cdn.civiccomputing.com/9/cookieControl-9.x.min.js"></script>
+	<script>
+		var config = {
+			apiKey: '9c3bd2a68162ba67b19f07e540747675bd136e66',
+			product: 'community',
+			optionalCookies: [
+				{
+					name: 'analytics',
+					label: 'Analytics',
+					description: 'Analytical cookies help us to improve our website by collecting and reporting information on its usage.',
+					cookies: [],
+					onAccept: function () { },
+					onRevoke: function () { }
+				}
+			],
+
+			position: 'LEFT',
+			theme: 'LIGHT'
+		};
+
+		CookieControl.load(config);
+	</script>
 </body>
 
 </html>
