@@ -14,7 +14,7 @@ Starter project for postcard QR-code landing pages.
 - `english-conversation-hours.html`
 - `intermediate-conversation-hours.html`
 - `advanced-conversation-hours.html`
-- `language-advising-study-abroad.html`
+- `language-advising-and-study-abroad.html`
 - `friends-without-frontiers.html`
 - `conversation-exchange.html`
 

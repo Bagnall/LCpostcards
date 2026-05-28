@@ -35,7 +35,7 @@ export default defineConfig({
 
 				languageAdvisingStudyAbroad: resolve(
 					__dirname,
-					"language-advising-study-abroad.html"
+					"language-advising-and-study-abroad.html"
 				),
 
 				oneToOneLanguageAdvisingAppointments: resolve(
