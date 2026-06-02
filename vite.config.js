@@ -33,29 +33,24 @@ export default defineConfig({
 					"friends-without-frontiers.html"
 				),
 
-				languageAdvisingStudyAbroad: resolve(
-					__dirname,
-					"language-advising-and-study-abroad.html"
-				),
-
-				oneToOneLanguageAdvisingAppointments: resolve(
-					__dirname,
-					"one-to-one-language-advising-appointments.html"
-				),
-
-				japaneseConversationHours: resolve(
-					__dirname,
-					"japanese-conversation-hours.html"
-				),
-
-				greekConversationHours: resolve(
-					__dirname,
-					"greek-conversation-hours.html"
-				),
-
 				portugueseConversationHours: resolve(
 					__dirname,
 					"portuguese-conversation-hours.html"
+				),
+
+				languageAdvising: resolve(
+					__dirname,
+					"language-advising.html"
+				),
+
+				studyAbroad: resolve(
+					__dirname,
+					"study-abroad.html"
+				),
+
+				visitOurStudyCentre: resolve(
+					__dirname,
+					"visit-our-study-centre.html"
 				)
 			}
 		}
