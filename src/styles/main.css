@@ -378,3 +378,64 @@
 		height: 3.5rem;
 	}
 }
+
+/* =========================================================
+	Footer logo
+	White-only variants; footer backgrounds are always dark.
+	Black logo img elements have been removed from HTML.
+========================================================= */
+
+@layer components {
+
+	.site-footer .uclogo,
+	.site-footer .uclogo a {
+		align-items: flex-start;
+		justify-content: flex-start;
+	}
+
+	.site-footer .uclogo a {
+		display: inline-flex;
+		max-width: 100%;
+	}
+
+	.site-footer .uclogo img {
+		width: auto;
+		height: auto;
+		max-width: 100%;
+		object-fit: contain;
+		vertical-align: top;
+	}
+
+	.footer-container {
+		align-items: flex-start;
+	}
+
+	.uclogo,
+	.square-logos {
+		align-self: flex-start;
+	}
+
+	/* Mobile default: show vertical white logo only */
+	.site-footer .uclogo .footer-logo-desktop-white {
+		display: none;
+	}
+
+	.site-footer .uclogo .footer-logo-mobile-white {
+		display: block;
+		max-width: 150px;
+	}
+
+	/* Tablet and up: show horizontal white logo only */
+	@media (min-width: 641px) {
+
+		.site-footer .uclogo .footer-logo-desktop-white {
+			display: block;
+			max-width: 340px;
+		}
+
+		.site-footer .uclogo .footer-logo-mobile-white {
+			display: none;
+		}
+	}
+}
+
