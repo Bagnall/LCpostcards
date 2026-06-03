@@ -82,28 +82,23 @@
 
 /* =========================================================
 	Theme Variants
+	Only CSS custom property overrides — must stay in
+	@layer components so they override :root without
+	needing higher specificity.
 ========================================================= */
 
 @layer components {
+
 	.theme-advanced {
-		--theme-band: #b5122b;
-
-		--theme-hero: #d63a4a;
-		--theme-hero-strong: #a60f25;
-
-		--theme-card: #f5f6f7; /* slightly cool grey like card */
-
-		--theme-accent: #b5122b;
-		--theme-accent-strong: #7f0d1d;
-
-		--theme-panel: #fdecee; /* very soft pink panel */
-
-		--theme-keyword: rgba(255, 255, 255, 0.18);
-
-		--text-main: #1f2937;
-		--text-soft: #4b5563;
-
-		--border-soft: rgba(0, 0, 0, 0.08);
+		--theme-band: #9a3f57;
+		--theme-hero: #f4d6df;
+		--theme-hero-strong: #d68ca0;
+		--theme-accent: #9a3f57;
+		--theme-accent-strong: #6f2940;
+		--theme-card: #fffafb;
+		--theme-panel: #fff3f6;
+		--theme-keyword: rgba(255, 255, 255, 0.24);
+		--theme-icon: rgba(255, 255, 255, 0.18);
 	}
 
 	.theme-english {
@@ -133,18 +128,6 @@
 		--theme-accent-strong: #4b5b4e;
 		--theme-card: #ffffff;
 		--theme-panel: #f8faf8;
-		--theme-keyword: rgba(255, 255, 255, 0.24);
-		--theme-icon: rgba(255, 255, 255, 0.18);
-	}
-
-	.theme-advanced {
-		--theme-band: #9a3f57;
-		--theme-hero: #f4d6df;
-		--theme-hero-strong: #d68ca0;
-		--theme-accent: #9a3f57;
-		--theme-accent-strong: #6f2940;
-		--theme-card: #fffafb;
-		--theme-panel: #fff3f6;
 		--theme-keyword: rgba(255, 255, 255, 0.24);
 		--theme-icon: rgba(255, 255, 255, 0.18);
 	}
@@ -188,181 +171,225 @@
 
 
 /* =========================================================
-	Footer
-========================================================= */
-
-@layer components {
-
-	.site-footer {
-		background-color: var(--theme-band);
-		color: white;
-		@apply py-6;
-	}
-
-	.footer-container {
-		@apply max-w-6xl mx-auto grid px-4 gap-6 items-center;
-		grid-template-areas:
-			"uclogo square-logos"
-			"social-logos social-logos"
-			"copyright copyright";
-		grid-template-columns: minmax(0, 1fr) auto;
-	}
-
-	.uclogo {
-		grid-area: uclogo;
-	}
-
-	.square-logos {
-		grid-area: square-logos;
-		@apply flex flex-wrap items-center justify-end gap-3;
-	}
-
-	.lclogo svg {
-		display: block;
-		width: 2.1rem;
-		height: 2.1rem;
-	}
-
-	.cam-social-media-icon svg {
-		display: block;
-		width: 1.2rem;
-		height: 1.2rem;
-	}		
-	
-	.social-logos {
-		grid-area: social-logos;
-		@apply flex w-full justify-end;
-	}
-
-	.copyright {
-		grid-area: copyright;
-	}
-
-	.footer-tagline {
-		@apply m-0 text-base italic leading-6 md:text-lg;
-	}
-
-	.copy,
-	.developed {
-		@apply m-0 text-sm leading-6;
-	}
-
-	.developed a {
-		@apply underline underline-offset-2;
-	}
-
-	.uclogo .logo {
-		display: none;
-		max-width: 100%;
-		height: auto;
-	}
-
-	/* Mobile first: stacked logo */
-	.uclogo .vertical.white {
-		display: block;
-		height: 5.5rem;
-		width: auto;
-	}
-
-	.cam-global-footer-links {
-		@apply m-0 flex w-fit list-none flex-wrap justify-end gap-3 p-0;
-	}
-
-	.cam-social-media-icon {
-		@apply flex h-10 w-10 items-center justify-center rounded-full;
-		border: 1px solid rgba(255, 255, 255, 0.18);
-		background-color: rgba(255, 255, 255, 0.04);
-		transition: background-color 0.2s ease, opacity 0.2s ease;
-	}
-
-	.cam-social-media-icon:hover {
-		background-color: rgba(255, 255, 255, 0.12);
-	}
-
-	.cam-social-media-icon svg {
-		width: 1.2rem;
-		height: 1.2rem;
-	}
-}
-
-
-/* =========================================================
-	Hero Artwork
-========================================================= */
-
-@layer components {
-
-	.poster-stage-advising,
-	.poster-stage-conversation {
-		@apply relative overflow-hidden;
-	}
-
-}
-
-
-/* =========================================================
 	Utilities
+	Single-class, variant-compatible utilities via @utility.
 ========================================================= */
 
-@layer utilities {
-
-	.text-balance {
-		text-wrap: balance;
-	}
-
-	.bg-theme-band {
-		background-color: var(--theme-band);
-	}
-
-	.text-theme-accent {
-		color: var(--theme-accent);
-	}
-
-	.text-theme-strong {
-		color: var(--theme-accent-strong);
-	}
+/* Colour convenience classes */
+@utility bg-theme-band {
+	background-color: var(--theme-band);
 }
 
-
-/* =========================================================
-	Compound utilities
-	These replace repeated multi-property inline styles.
-	Using @utility so variants (hover:, md: etc.) work.
-========================================================= */
-
-@utility hero-card {
-	background-color: var(--theme-card);
-	border-color: var(--border-soft);
-	box-shadow: var(--shadow-soft);
+@utility text-theme-accent {
+	color: var(--theme-accent);
 }
 
-@utility panel-box {
-	background-color: var(--theme-panel);
-	border-color: var(--border-soft);
+@utility text-theme-strong {
+	color: var(--theme-accent-strong);
 }
 
+/* Text wrapping */
+@utility text-balance {
+	text-wrap: balance;
+}
+
+/* Hero poster gradient background */
 @utility poster-bg {
 	background:
 		linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0)),
 		linear-gradient(135deg, var(--theme-hero) 0%, var(--theme-hero-strong) 100%);
 }
 
+/* Hero card panel */
+@utility hero-card {
+	background-color: var(--theme-card);
+	border-color: var(--border-soft);
+	box-shadow: var(--shadow-soft);
+}
+
+/* Fee / info panel */
+@utility panel-box {
+	background-color: var(--theme-panel);
+	border-color: var(--border-soft);
+}
+
+/* Footer — single-class utilities */
+@utility site-footer {
+	background-color: var(--theme-band);
+	color: white;
+	padding-top: 1.5rem;
+	padding-bottom: 1.5rem;
+}
+
+@utility uclogo {
+	grid-area: uclogo;
+	align-self: flex-start;
+}
+
+@utility square-logos {
+	grid-area: square-logos;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 0.75rem;
+	align-self: flex-start;
+}
+
+@utility social-logos {
+	grid-area: social-logos;
+	display: flex;
+	width: 100%;
+	justify-content: flex-end;
+}
+
+@utility copyright {
+	grid-area: copyright;
+}
+
+@utility footer-tagline {
+	margin: 0;
+	font-size: 1rem;
+	font-style: italic;
+	line-height: 1.5rem;
+}
+
+@utility footer-container {
+	max-width: 72rem;
+	margin-left: auto;
+	margin-right: auto;
+	display: grid;
+	padding-left: 1rem;
+	padding-right: 1rem;
+	gap: 1.5rem;
+	align-items: flex-start;
+	grid-template-areas:
+		"uclogo square-logos"
+		"social-logos social-logos"
+		"copyright copyright";
+	grid-template-columns: minmax(0, 1fr) auto;
+}
+
+@utility cam-global-footer-links {
+	margin: 0;
+	display: flex;
+	width: fit-content;
+	list-style: none;
+	flex-wrap: wrap;
+	justify-content: flex-end;
+	gap: 0.75rem;
+	padding: 0;
+}
+
+@utility cam-social-media-icon {
+	display: flex;
+	height: 2.5rem;
+	width: 2.5rem;
+	align-items: center;
+	justify-content: center;
+	border-radius: 9999px;
+	border: 1px solid rgba(255, 255, 255, 0.18);
+	background-color: rgba(255, 255, 255, 0.04);
+	transition: background-color 0.2s ease, opacity 0.2s ease;
+}
+
+@utility poster-stage-conversation {
+	position: relative;
+	overflow: hidden;
+}
+
+@utility poster-stage-advising {
+	position: relative;
+	overflow: hidden;
+}
+
 
 /* =========================================================
-	Responsive Adjustments
+	Descendant and pseudo-class rules
+	These cannot be expressed as @utility (multi-element
+	or state selectors). Plain CSS, no layer needed.
 ========================================================= */
 
-@media (min-width: 768px) {
+.footer-tagline {
+	/* md:text-lg responsive override */
+	@media (min-width: 768px) {
+		font-size: 1.125rem;
+	}
+}
 
-	.uclogo .vertical.white {
+.copy,
+.developed {
+	margin: 0;
+	font-size: 0.875rem;
+	line-height: 1.5rem;
+}
+
+.developed a {
+	text-decoration: underline;
+	text-underline-offset: 2px;
+}
+
+.cam-social-media-icon:hover {
+	background-color: rgba(255, 255, 255, 0.12);
+}
+
+.cam-social-media-icon svg,
+.lclogo svg {
+	display: block;
+	width: 1.2rem;
+	height: 1.2rem;
+}
+
+.lclogo svg {
+	width: 2.1rem;
+	height: 2.1rem;
+}
+
+/* Footer logo switching */
+.site-footer .uclogo,
+.site-footer .uclogo a {
+	align-items: flex-start;
+	justify-content: flex-start;
+}
+
+.site-footer .uclogo a {
+	display: inline-flex;
+	max-width: 100%;
+}
+
+.site-footer .uclogo img {
+	width: auto;
+	height: auto;
+	max-width: 100%;
+	object-fit: contain;
+	vertical-align: top;
+}
+
+/* Mobile: vertical white logo only */
+.site-footer .uclogo .footer-logo-desktop-white {
+	display: none;
+}
+
+.site-footer .uclogo .footer-logo-mobile-white {
+	display: block;
+	max-width: 150px;
+}
+
+/* Tablet and up: horizontal white logo only */
+@media (min-width: 641px) {
+
+	.site-footer .uclogo .footer-logo-desktop-white {
+		display: block;
+		max-width: 340px;
+	}
+
+	.site-footer .uclogo .footer-logo-mobile-white {
 		display: none;
 	}
+}
 
-	.uclogo .horizontal.white {
-		display: block;
-		height: 3rem;
-		width: auto;
-	}
+/* Footer grid responsive adjustments */
+@media (min-width: 768px) {
 
 	.footer-container {
 		grid-template-areas:
@@ -397,69 +424,4 @@
 		grid-template-columns: minmax(18rem, 1.3fr) auto;
 		row-gap: 1.5rem;
 	}
-
-	.uclogo .horizontal.white {
-		height: 3.5rem;
-	}
 }
-
-/* =========================================================
-	Footer logo
-	White-only variants; footer backgrounds are always dark.
-	Black logo img elements have been removed from HTML.
-========================================================= */
-
-@layer components {
-
-	.site-footer .uclogo,
-	.site-footer .uclogo a {
-		align-items: flex-start;
-		justify-content: flex-start;
-	}
-
-	.site-footer .uclogo a {
-		display: inline-flex;
-		max-width: 100%;
-	}
-
-	.site-footer .uclogo img {
-		width: auto;
-		height: auto;
-		max-width: 100%;
-		object-fit: contain;
-		vertical-align: top;
-	}
-
-	.footer-container {
-		align-items: flex-start;
-	}
-
-	.uclogo,
-	.square-logos {
-		align-self: flex-start;
-	}
-
-	/* Mobile default: show vertical white logo only */
-	.site-footer .uclogo .footer-logo-desktop-white {
-		display: none;
-	}
-
-	.site-footer .uclogo .footer-logo-mobile-white {
-		display: block;
-		max-width: 150px;
-	}
-
-	/* Tablet and up: show horizontal white logo only */
-	@media (min-width: 641px) {
-
-		.site-footer .uclogo .footer-logo-desktop-white {
-			display: block;
-			max-width: 340px;
-		}
-
-		.site-footer .uclogo .footer-logo-mobile-white {
-			display: none;
-		}
-	}
-}
-
