@@ -325,6 +325,30 @@
 
 
 /* =========================================================
+	Compound utilities
+	These replace repeated multi-property inline styles.
+	Using @utility so variants (hover:, md: etc.) work.
+========================================================= */
+
+@utility hero-card {
+	background-color: var(--theme-card);
+	border-color: var(--border-soft);
+	box-shadow: var(--shadow-soft);
+}
+
+@utility panel-box {
+	background-color: var(--theme-panel);
+	border-color: var(--border-soft);
+}
+
+@utility poster-bg {
+	background:
+		linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0)),
+		linear-gradient(135deg, var(--theme-hero) 0%, var(--theme-hero-strong) 100%);
+}
+
+
+/* =========================================================
 	Responsive Adjustments
 ========================================================= */
 
