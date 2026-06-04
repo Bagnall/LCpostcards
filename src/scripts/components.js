@@ -79,7 +79,7 @@ class LcHeader extends HTMLElement {
 
 	render() {
 		const label   = escapeHTML(this.getAttribute('page-label') ?? 'Site header')
-		const logoSrc = escapeHTML(this.getAttribute('logo-src') ?? '/assets/ucam_language_centre_h_white.png')
+		const logoSrc = escapeHTML(this.getAttribute('logo-src') ?? './assets/ucam_language_centre_h_white.png')
 
 		this.innerHTML = `
 			<a href="#main-content" class="skip-link">Skip to main content</a>
@@ -129,10 +129,10 @@ class LcFooter extends HTMLElement {
 						<a href="https://www.langcen.cam.ac.uk/" target="_blank" rel="noopener noreferrer">
 							<img class="footer-logo-desktop-white"
 								alt="University of Cambridge Language Centre logo"
-								src="/assets/ucam_language_centre_h_white.png">
+								src="./assets/ucam_language_centre_h_white.png">
 							<img class="footer-logo-mobile-white"
 								alt="University of Cambridge Language Centre logo"
-								src="/assets/ucam_language_centre_v_white.png">
+								src="./assets/ucam_language_centre_v_white.png">
 						</a>
 					</div>
 
@@ -203,14 +203,16 @@ class LcFooter extends HTMLElement {
  * and the artwork image. The poster gradient background is applied via the
  * poster-hero-bg utility class defined in main.css.
  *
- * @attr {string} artwork-src  - URL of the hero artwork image
- * @attr {string} artwork-alt  - Alt text for the artwork (default: "" — decorative)
+ * @attr {string} artwork-src    - URL of the hero artwork image
+ * @attr {string} artwork-alt    - Alt text for the artwork (default: "" — decorative)
+ * @attr {string} artwork-class  - CSS classes for the img element
+ *                                 (default: "hero-artwork-image h-[80%] w-auto opacity-95")
  * @slot none
  */
 // ---------------------------------------------------------------------------
 class LcHeroPoster extends HTMLElement {
 	static get observedAttributes() {
-		return ['artwork-src', 'artwork-alt']
+		return ['artwork-src', 'artwork-alt', 'artwork-class']
 	}
 
 	connectedCallback() {
@@ -222,8 +224,9 @@ class LcHeroPoster extends HTMLElement {
 	}
 
 	render() {
-		const src = escapeHTML(this.getAttribute('artwork-src') ?? '')
-		const alt = escapeHTML(this.getAttribute('artwork-alt') ?? '')
+		const src      = escapeHTML(this.getAttribute('artwork-src')   ?? '')
+		const alt      = escapeHTML(this.getAttribute('artwork-alt')   ?? '')
+		const imgClass = escapeHTML(this.getAttribute('artwork-class') ?? 'hero-artwork-image h-[80%] w-auto opacity-95')
 
 		this.innerHTML = `
 			<div class="poster-stage-conversation poster-hero-bg relative overflow-hidden rounded-[var(--radius-poster)] min-h-[24rem] md:min-h-[30rem] shadow-xl">
@@ -235,7 +238,7 @@ class LcHeroPoster extends HTMLElement {
 
 				<div class="hero-artwork absolute inset-0 z-10 flex items-end justify-start"
 					aria-hidden="true">
-					<img src="${src}" alt="${alt}" class="w-auto h-full">
+					<img src="${src}" alt="${alt}" class="${imgClass}">
 				</div>
 
 			</div>`
