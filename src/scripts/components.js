@@ -50,6 +50,16 @@ const SVG_YOUTUBE = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 64
 	<path d="M581.7 188.1C575.5 164.4 556.9 145.8 533.4 139.5C490.9 128 320.1 128 320.1 128C320.1 128 149.3 128 106.7 139.5C83.2 145.8 64.7 164.4 58.4 188.1C47 231 47 320.4 47 320.4C47 320.4 47 409.8 58.4 452.7C64.7 476.3 83.2 494.2 106.7 500.5C149.3 512 320.1 512 320.1 512C320.1 512 490.9 512 533.5 500.5C557 494.2 575.5 476.3 581.8 452.7C593.2 409.8 593.2 320.4 593.2 320.4C593.2 320.4 593.2 231 581.8 188.1zM264.2 401.6L264.2 239.2L406.9 320.4L264.2 401.6z" fill="#fff"/>
 </svg>`;
 
+const SVG_EXTERNAL_LINK = `<svg xmlns="http://www.w3.org/2000/svg"
+	viewBox="0 0 24 24"
+	fill="currentColor"
+	focusable="false"
+	aria-hidden="true">
+	<path d="M14 3h7v7h-2V6.41l-9.29 9.3-1.42-1.42 9.3-9.29H14V3z"/>
+	<path d="M5 5h6v2H7v10h10v-4h2v6H5V5z"/>
+</svg>`;
+
+
 
 // ---------------------------------------------------------------------------
 /**
@@ -276,6 +286,8 @@ class LcInfoCard extends HTMLElement {
 				</h2>
 				<div class="card-body">${bodyHTML}</div>
 			</div>`;
+
+		decorateExternalLinks(this);
 	}
 }
 
@@ -287,3 +299,27 @@ customElements.define('lc-header', LcHeader);
 customElements.define('lc-footer', LcFooter);
 customElements.define('lc-hero-poster', LcHeroPoster);
 customElements.define('lc-info-card', LcInfoCard);
+
+function decorateExternalLinks(root) {
+	root.querySelectorAll('a[href^="http://"], a[href^="https://"]').forEach((link) => {
+
+		if (link.querySelector('.external-link-prefix')) {
+			return;
+		}
+
+		const wrapper = document.createElement('span');
+		wrapper.className = 'external-link-prefix';
+
+		wrapper.innerHTML = `
+			<span class="external-link-icon" aria-hidden="true">
+				${SVG_EXTERNAL_LINK}
+			</span>
+		`;
+
+		while (link.firstChild) {
+			wrapper.appendChild(link.firstChild);
+		}
+
+		link.appendChild(wrapper);
+	});
+}

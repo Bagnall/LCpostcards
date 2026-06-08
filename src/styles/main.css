@@ -13,7 +13,7 @@
 
 @theme {
 	--radius-poster: 2rem;
-	--cols-hero: 1.1fr 0.9fr;
+	--cols-hero: 0.9fr 1.1fr;
 }
 
 
@@ -842,6 +842,28 @@ lc-info-card {
 .site-footer .uclogo .footer-logo-mobile-white {
 	display: block;
 	max-width: 150px;
+}
+
+.external-link-prefix {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+}
+
+.external-link-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 1em;
+	height: 1em;
+	flex: 0 0 auto;
+	margin-top: 0.2rem;
+}
+
+.external-link-icon svg {
+	width: 100%;
+	height: 100%;
+	fill: currentColor;
 }
 
 /* Tablet and up: horizontal white logo only */
