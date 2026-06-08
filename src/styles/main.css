@@ -6,90 +6,78 @@
 
 
 /* =========================================================
-	Design tokens — @theme
-	v4: use @theme to register named tokens that Tailwind
-	exposes as utilities automatically (e.g. rounded-poster,
-	gap-*, max-w-*). Breakpoints registered here replace
-	hardcoded px values in media queries throughout.
+	Design tokens
+	Register magic values as named tokens so they're
+	change-in-one-place rather than hunt-across-9-files.
 ========================================================= */
 
 @theme {
-	/* Breakpoints — replaces 641px, 768px, 1024px magic values */
-	--breakpoint-logo:   41rem;    /* 641px  — footer logo switch   */
-	--breakpoint-md:     48rem;    /* 768px  — tablet               */
-	--breakpoint-lg:     64rem;    /* 1024px — desktop              */
-
-	/* Layout tokens */
-	--radius-poster:     2rem;
-	--cols-hero:         1.1fr 0.9fr;
-
-	/* Logo size tokens — replaces 150px, 340px magic values */
-	--logo-mobile-max:   150px;
-	--logo-desktop-max:  340px;
-
-	/* Icon size tokens — replaces 1.2rem, 2.1rem magic values */
-	--icon-social:       1.2rem;
-	--icon-lc:           2.1rem;
+	--radius-poster: 2rem;
+	--cols-hero: 1.1fr 0.9fr;
 }
 
 
 /* =========================================================
-	Base layer — global resets and :root tokens
-	v4: :root custom properties belong here, not in @theme,
-	because they are runtime values resolved by the browser,
-	not static design tokens consumed by Tailwind at
-	build time.
+	Base Layer
+	Global tokens, resets, focus styles
 ========================================================= */
 
 @layer base {
 
 	:root {
 		/* Page */
-		--page-bg:    #f5f7f8;
-		--surface:    #ffffff;
+		--page-bg: #f5f7f8;
+		--surface: #ffffff;
 
 		/* Text */
-		--text-main:  #1f2933;
-		--text-soft:  #52606d;
+		--text-main: #1f2933;
+		--text-soft: #52606d;
 
 		/* Borders / shadows */
-		--border-soft:  rgba(15, 23, 42, 0.08);
-		--shadow-soft:  0 24px 60px rgba(15, 23, 42, 0.12);
+		--border-soft: rgba(15, 23, 42, 0.08);
+		--shadow-soft: 0 24px 60px rgba(15, 23, 42, 0.12);
 
 		/* Default theme tokens */
-		--theme-band:         #355b7a;
-		--theme-hero:         #dbeaf6;
-		--theme-hero-strong:  #9fc2df;
-		--theme-accent:       #355b7a;
-		--theme-accent-strong:#27445d;
-		--theme-card:         #ffffff;
-		--theme-panel:        #f8fafc;
-		--theme-keyword:      rgba(255, 255, 255, 0.24);
-		--theme-icon:         rgba(255, 255, 255, 0.22);
+		--theme-band: #355b7a;
+		--theme-hero: #dbeaf6;
+		--theme-hero-strong: #9fc2df;
+		--theme-accent: #355b7a;
+		--theme-accent-strong: #27445d;
+		--theme-card: #ffffff;
+		--theme-panel: #f8fafc;
+		--theme-keyword: rgba(255, 255, 255, 0.24);
+		--theme-icon: rgba(255, 255, 255, 0.22);
 
 		/* Resource section defaults */
-		--theme-resource-panel:        #72a7d6;
+		--theme-resource-panel: #72a7d6;
 		--theme-resource-panel-strong: #5d98cd;
-		--theme-resource-heading:      #ffffff;
-		--theme-resource-title:        #ffffff;
-		--theme-resource-text:         #111827;
-		--theme-resource-icon:         #ffffff;
+		--theme-resource-heading: #ffffff;
+		--theme-resource-title: #ffffff;
+		--theme-resource-text: #111827;
+		--theme-resource-icon: #ffffff;
 	}
 
-	html { scroll-behavior: smooth; }
+	html {
+		scroll-behavior: smooth;
+	}
 
 	body {
 		margin: 0;
 		background-color: var(--page-bg);
 		color: var(--text-main);
-		font-family: Inter, ui-sans-serif, system-ui, -apple-system,
-		             BlinkMacSystemFont, "Segoe UI", sans-serif;
+		font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 		min-width: 360px;
 	}
 
-	a { color: inherit; text-decoration: none; }
+	a {
+		color: inherit;
+		text-decoration: none;
+	}
 
-	img { display: block; max-width: 100%; }
+	img {
+		display: block;
+		max-width: 100%;
+	}
 
 	a:focus-visible,
 	button:focus-visible {
@@ -98,225 +86,201 @@
 		border-radius: 0.5rem;
 	}
 
-	:focus:not(:focus-visible) { outline: none; }
-}
-
-
-/* =========================================================
-	Theme variants — @custom-variant
-	v4: theme classes that drive contextual styling belong
-	as @custom-variant declarations, not in @layer components.
-	This lets Tailwind generate scoped utilities such as
-	theme-advanced:bg-[var(--theme-band)] if needed,
-	and makes the variant system explicit and composable.
-========================================================= */
-
-@custom-variant theme-advanced  (&:where(.theme-advanced, .theme-advanced *));
-@custom-variant theme-english    (&:where(.theme-english, .theme-english *));
-@custom-variant theme-intermediate (&:where(.theme-intermediate, .theme-intermediate *));
-@custom-variant theme-friends    (&:where(.theme-friends, .theme-friends *));
-@custom-variant theme-exchange   (&:where(.theme-exchange, .theme-exchange *));
-@custom-variant theme-advising   (&:where(.theme-advising, .theme-advising *));
-
-/* The actual token overrides — plain CSS, no layer needed.
-   These just set custom properties on the scoping element. */
-
-.theme-advanced {
-	--theme-band:          #9a3f57;
-	--theme-hero:          #f4d6df;
-	--theme-hero-strong:   #d68ca0;
-	--theme-accent:        #9a3f57;
-	--theme-accent-strong: #6f2940;
-	--theme-card:          #fffafb;
-	--theme-panel:         #fff3f6;
-	--theme-keyword:       rgba(255, 255, 255, 0.24);
-	--theme-icon:          rgba(255, 255, 255, 0.18);
-}
-
-.theme-english {
-	--theme-band:          #1f4e79;
-	--theme-hero:          #d7e7f4;
-	--theme-hero-strong:   #89afd1;
-	--theme-accent:        #245985;
-	--theme-accent-strong: #183b5c;
-	--theme-card:          #ffffff;
-	--theme-panel:         #f3f8fc;
-	--theme-keyword:       rgba(255, 255, 255, 0.34);
-	--theme-icon:          rgba(255, 255, 255, 0.22);
-	--theme-resource-panel:        #8bb7dc;
-	--theme-resource-panel-strong: #76a8d3;
-	--theme-resource-heading:      #12324d;
-	--theme-resource-title:        #12324d;
-	--theme-resource-text:         #111827;
-	--theme-resource-icon:         #ffffff;
-}
-
-.theme-intermediate {
-	--theme-band:          #5f7263;
-	--theme-hero:          #dfe8df;
-	--theme-hero-strong:   #b4c1b4;
-	--theme-accent:        #5f7263;
-	--theme-accent-strong: #4b5b4e;
-	--theme-card:          #ffffff;
-	--theme-panel:         #f8faf8;
-	--theme-keyword:       rgba(255, 255, 255, 0.24);
-	--theme-icon:          rgba(255, 255, 255, 0.18);
-}
-
-.theme-friends {
-	--theme-band:          #9a6a2f;
-	--theme-hero:          #f0e0c8;
-	--theme-hero-strong:   #d7b07c;
-	--theme-accent:        #9a6a2f;
-	--theme-accent-strong: #7d5220;
-	--theme-card:          #fffdf9;
-	--theme-panel:         #fffaf3;
-	--theme-keyword:       rgba(255, 255, 255, 0.18);
-	--theme-icon:          rgba(255, 255, 255, 0.16);
-}
-
-.theme-exchange {
-	--theme-band:          #8a5e2d;
-	--theme-hero:          #ead7bf;
-	--theme-hero-strong:   #c89f6a;
-	--theme-accent:        #8a5e2d;
-	--theme-accent-strong: #6d491f;
-	--theme-card:          #fffdf8;
-	--theme-panel:         #fff9f1;
-	--theme-keyword:       rgba(255, 255, 255, 0.18);
-	--theme-icon:          rgba(255, 255, 255, 0.16);
-}
-
-.theme-advising {
-	--theme-band:          #4b7c7a;
-	--theme-hero:          #dcefee;
-	--theme-hero-strong:   #a9cfcb;
-	--theme-accent:        #4b7c7a;
-	--theme-accent-strong: #355f5d;
-	--theme-card:          #ffffff;
-	--theme-panel:         #f7fbfb;
-	--theme-keyword:       rgba(255, 255, 255, 0.24);
-	--theme-icon:          rgba(255, 255, 255, 0.18);
+	:focus:not(:focus-visible) {
+		outline: none;
+	}
 }
 
 
 /* =========================================================
 	Custom element display
-	Custom elements are inline by default.
+	Custom elements are inline by default — set to block
+	so they participate in normal layout flow.
 ========================================================= */
 
 lc-header,
-lc-footer {
-	display: block;
-}
-
+lc-footer,
 lc-hero-poster,
 lc-info-card {
-	display: contents;
+	display: block;
 }
 
 
 /* =========================================================
-	@utility — single-class variant-compatible utilities
-	v4: @utility replaces @layer components for anything
-	that should support Tailwind variants (hover:, md:, etc.)
-	and be usable as a class in HTML.
+	Skip link — WCAG 2.4.1 (Level A)
+	Visually hidden until focused by keyboard users.
 ========================================================= */
 
-/* ── Colour ──────────────────────────────────────────── */
-
-@utility text-main    { color: var(--text-main); }
-@utility text-soft    { color: var(--text-soft); }
-@utility text-accent  { color: var(--theme-accent-strong); }
-@utility text-keyword { color: var(--theme-keyword); }
-
-@utility bg-card      { background-color: var(--theme-card); }
-@utility bg-page      { background-color: var(--page-bg); }
-@utility bg-band      { background-color: var(--theme-band); }
-
-@utility border-soft  { border-color: var(--border-soft); }
-@utility shadow-card  { box-shadow: var(--shadow-soft); }
-
-/* Legacy aliases kept for backward-compat with existing HTML */
-@utility bg-theme-band    { background-color: var(--theme-band); }
-@utility text-theme-accent  { color: var(--theme-accent); }
-@utility text-theme-strong  { color: var(--theme-accent-strong); }
-
-/* ── Typography ──────────────────────────────────────── */
-
-@utility text-balance { text-wrap: balance; }
-
-/* ── Poster backgrounds ──────────────────────────────── */
-
-@utility poster-bg {
-	background:
-		linear-gradient(180deg, white/8, transparent),
-		linear-gradient(135deg, var(--theme-hero) 0%, var(--theme-hero-strong) 100%);
-}
-
-/* Alias for web component */
-@utility poster-hero-bg {
-	background:
-		linear-gradient(180deg, white/8, transparent),
-		linear-gradient(135deg, var(--theme-hero) 0%, var(--theme-hero-strong) 100%);
-}
-
-/* ── Card / panel ────────────────────────────────────── */
-
-@utility hero-card {
-	background-color: var(--theme-card);
-	border-color: var(--border-soft);
-	box-shadow: var(--shadow-soft);
-}
-
-@utility panel-box {
-	background-color: var(--theme-panel);
-	border-color: var(--border-soft);
-}
-
-/* ── Poster stage ────────────────────────────────────── */
-
-@utility poster-stage-conversation { position: relative; overflow: hidden; }
-@utility poster-stage-advising     { position: relative; overflow: hidden; }
-
-/* ── Skip link ───────────────────────────────────────── */
-
-@utility skip-link {
+.skip-link {
 	position: absolute;
 	top: -100%;
 	left: 1rem;
-	background-color: var(--theme-band);
+	background: var(--theme-band);
 	color: white;
 	padding: 0.5rem 1rem;
 	border-radius: 0 0 0.375rem 0.375rem;
-	font-size: 0.875rem;
+	font-size: 14px;
 	font-weight: 500;
 	text-decoration: none;
 	z-index: 9999;
 	transition: top 0.15s;
 }
 
-/* ── Footer utilities ────────────────────────────────── */
+.skip-link:focus {
+	top: 0;
+}
 
+
+/* =========================================================
+	Theme Variants
+	Only CSS custom property overrides — must stay in
+	@layer components so they override :root without
+	needing higher specificity.
+========================================================= */
+
+@layer components {
+
+	.theme-advanced {
+		--theme-band: #9a3f57;
+		--theme-hero: #f4d6df;
+		--theme-hero-strong: #d68ca0;
+		--theme-accent: #9a3f57;
+		--theme-accent-strong: #6f2940;
+		--theme-card: #fffafb;
+		--theme-panel: #fff3f6;
+		--theme-keyword: rgba(255, 255, 255, 0.24);
+		--theme-icon: rgba(255, 255, 255, 0.18);
+	}
+
+	.theme-english {
+		--theme-band: #1f4e79;
+		--theme-hero: #d7e7f4;
+		--theme-hero-strong: #89afd1;
+		--theme-accent: #245985;
+		--theme-accent-strong: #183b5c;
+		--theme-card: #ffffff;
+		--theme-panel: #f3f8fc;
+		--theme-keyword: rgba(255, 255, 255, 0.34);
+		--theme-icon: rgba(255, 255, 255, 0.22);
+
+		--theme-resource-panel: #8bb7dc;
+		--theme-resource-panel-strong: #76a8d3;
+		--theme-resource-heading: #12324d;
+		--theme-resource-title: #12324d;
+		--theme-resource-text: #111827;
+		--theme-resource-icon: #ffffff;
+	}
+
+	.theme-intermediate {
+		--theme-band: #5f7263;
+		--theme-hero: #dfe8df;
+		--theme-hero-strong: #b4c1b4;
+		--theme-accent: #5f7263;
+		--theme-accent-strong: #4b5b4e;
+		--theme-card: #ffffff;
+		--theme-panel: #f8faf8;
+		--theme-keyword: rgba(255, 255, 255, 0.24);
+		--theme-icon: rgba(255, 255, 255, 0.18);
+	}
+
+	.theme-friends {
+		--theme-band: #9a6a2f;
+		--theme-hero: #f0e0c8;
+		--theme-hero-strong: #d7b07c;
+		--theme-accent: #9a6a2f;
+		--theme-accent-strong: #7d5220;
+		--theme-card: #fffdf9;
+		--theme-panel: #fffaf3;
+		--theme-keyword: rgba(255, 255, 255, 0.18);
+		--theme-icon: rgba(255, 255, 255, 0.16);
+	}
+
+	.theme-exchange {
+		--theme-band: #8a5e2d;
+		--theme-hero: #ead7bf;
+		--theme-hero-strong: #c89f6a;
+		--theme-accent: #8a5e2d;
+		--theme-accent-strong: #6d491f;
+		--theme-card: #fffdf8;
+		--theme-panel: #fff9f1;
+		--theme-keyword: rgba(255, 255, 255, 0.18);
+		--theme-icon: rgba(255, 255, 255, 0.16);
+	}
+
+	.theme-advising {
+		--theme-band: #4b7c7a;
+		--theme-hero: #dcefee;
+		--theme-hero-strong: #a9cfcb;
+		--theme-accent: #4b7c7a;
+		--theme-accent-strong: #355f5d;
+		--theme-card: #ffffff;
+		--theme-panel: #f7fbfb;
+		--theme-keyword: rgba(255, 255, 255, 0.24);
+		--theme-icon: rgba(255, 255, 255, 0.18);
+	}
+}
+
+
+/* =========================================================
+	Utilities
+	Single-class, variant-compatible utilities via @utility.
+========================================================= */
+
+/* Text colour utilities */
+@utility text-main    { color: var(--text-main); }
+@utility text-soft    { color: var(--text-soft); }
+@utility text-accent  { color: var(--theme-accent-strong); }
+@utility text-keyword { color: var(--theme-keyword); }
+
+/* Background utilities */
+@utility bg-card { background-color: var(--theme-card); }
+@utility bg-page { background-color: var(--page-bg); }
+
+/* Border utility */
+@utility border-soft { border-color: var(--border-soft); }
+
+/* Shadow utility */
+@utility shadow-soft { box-shadow: var(--shadow-soft); }
+
+/* Legacy convenience aliases (keep for existing class usage) */
+@utility bg-theme-band   { background-color: var(--theme-band); }
+@utility text-theme-accent { color: var(--theme-accent); }
+@utility text-theme-strong { color: var(--theme-accent-strong); }
+@utility text-balance      { text-wrap: balance; }
+
+/* Hero poster gradient background */
+@utility poster-hero-bg {
+	background:
+		linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0)),
+		linear-gradient(135deg, var(--theme-hero) 0%, var(--theme-hero-strong) 100%);
+}
+
+/* Alias used by existing pages before component refactor */
+@utility poster-bg {
+	background:
+		linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0)),
+		linear-gradient(135deg, var(--theme-hero) 0%, var(--theme-hero-strong) 100%);
+}
+
+/* Hero card panel */
+@utility hero-card {
+	background-color: var(--theme-card);
+	border-color: var(--border-soft);
+	box-shadow: var(--shadow-soft);
+}
+
+/* Fee / info panel */
+@utility panel-box {
+	background-color: var(--theme-panel);
+	border-color: var(--border-soft);
+}
+
+/* Footer — single-class utilities */
 @utility site-footer {
 	background-color: var(--theme-band);
 	color: white;
 	padding-top: 1.5rem;
 	padding-bottom: 1.5rem;
-}
-
-@utility footer-container {
-	max-width: var(--breakpoint-lg);
-	margin-inline: auto;
-	display: grid;
-	padding-inline: 1rem;
-	gap: 1.5rem;
-	align-items: flex-start;
-	grid-template-areas:
-		"uclogo square-logos"
-		"social-logos social-logos"
-		"copyright copyright";
-	grid-template-columns: minmax(0, 1fr) auto;
 }
 
 @utility uclogo {
@@ -352,15 +316,31 @@ lc-info-card {
 	line-height: 1.5rem;
 }
 
+@utility footer-container {
+	max-width: 72rem;
+	margin-left: auto;
+	margin-right: auto;
+	display: grid;
+	padding-left: 1rem;
+	padding-right: 1rem;
+	gap: 1.5rem;
+	align-items: flex-start;
+	grid-template-areas:
+		"uclogo square-logos"
+		"social-logos social-logos"
+		"copyright copyright";
+	grid-template-columns: minmax(0, 1fr) auto;
+}
+
 @utility cam-global-footer-links {
 	margin: 0;
-	padding: 0;
 	display: flex;
 	width: fit-content;
 	list-style: none;
 	flex-wrap: wrap;
 	justify-content: flex-end;
 	gap: 0.75rem;
+	padding: 0;
 }
 
 @utility cam-social-media-icon {
@@ -370,38 +350,31 @@ lc-info-card {
 	align-items: center;
 	justify-content: center;
 	border-radius: 9999px;
-	/* v4: use color-mix() instead of magic rgba hex values */
-	border: 1px solid color-mix(in srgb, white 18%, transparent);
-	background-color: color-mix(in srgb, white 4%, transparent);
+	border: 1px solid rgba(255, 255, 255, 0.18);
+	background-color: rgba(255, 255, 255, 0.04);
 	transition: background-color 0.2s ease, opacity 0.2s ease;
+}
+
+@utility poster-stage-conversation {
+	position: relative;
+	overflow: hidden;
+}
+
+@utility poster-stage-advising {
+	position: relative;
+	overflow: hidden;
 }
 
 
 /* =========================================================
-	Pseudo-class and descendant rules
-	These cannot be expressed as @utility since they target
-	multiple elements or use pseudo-selectors.
+	Descendant and pseudo-class rules
+	Cannot be expressed as @utility.
 ========================================================= */
 
-.skip-link:focus {
-	top: 0;
-}
-
-.cam-social-media-icon:hover {
-	/* v4: color-mix() instead of rgba magic value */
-	background-color: color-mix(in srgb, white 12%, transparent);
-}
-
-.cam-social-media-icon svg {
-	display: block;
-	width: var(--icon-social);
-	height: var(--icon-social);
-}
-
-.lclogo svg {
-	display: block;
-	width: var(--icon-lc);
-	height: var(--icon-lc);
+.footer-tagline {
+	@media (min-width: 768px) {
+		font-size: 1.125rem;
+	}
 }
 
 .copy,
@@ -416,12 +389,23 @@ lc-info-card {
 	text-underline-offset: 2px;
 }
 
-/* Footer tagline responsive size */
-@media (min-width: var(--breakpoint-md)) {
-	.footer-tagline { font-size: 1.125rem; }
+.cam-social-media-icon:hover {
+	background-color: rgba(255, 255, 255, 0.12);
 }
 
-/* Footer logo switching — uses @theme breakpoint token */
+.cam-social-media-icon svg {
+	display: block;
+	width: 1.2rem;
+	height: 1.2rem;
+}
+
+.lclogo svg {
+	display: block;
+	width: 2.1rem;
+	height: 2.1rem;
+}
+
+/* Footer logo switching */
 .site-footer .uclogo,
 .site-footer .uclogo a {
 	align-items: flex-start;
@@ -441,23 +425,32 @@ lc-info-card {
 	vertical-align: top;
 }
 
-.site-footer .uclogo .footer-logo-desktop-white { display: none; }
+/* Mobile: vertical white logo only */
+.site-footer .uclogo .footer-logo-desktop-white {
+	display: none;
+}
 
 .site-footer .uclogo .footer-logo-mobile-white {
 	display: block;
-	max-width: var(--logo-mobile-max);
+	max-width: 150px;
 }
 
-@media (min-width: var(--breakpoint-logo)) {
+/* Tablet and up: horizontal white logo only */
+@media (min-width: 641px) {
+
 	.site-footer .uclogo .footer-logo-desktop-white {
 		display: block;
-		max-width: var(--logo-desktop-max);
+		max-width: 340px;
 	}
-	.site-footer .uclogo .footer-logo-mobile-white { display: none; }
+
+	.site-footer .uclogo .footer-logo-mobile-white {
+		display: none;
+	}
 }
 
-/* Footer grid — tablet */
-@media (min-width: var(--breakpoint-md)) {
+/* Footer grid responsive adjustments */
+@media (min-width: 768px) {
+
 	.footer-container {
 		grid-template-areas:
 			"uclogo square-logos"
@@ -467,13 +460,449 @@ lc-info-card {
 		row-gap: 0.75rem;
 		column-gap: 1.5rem;
 	}
-	.square-logos { justify-content: flex-end; align-self: center; }
-	.copyright    { align-self: start; padding-top: 0.25rem; }
-	.social-logos { justify-self: end; align-self: start; padding-top: 0.25rem; }
+
+	.square-logos {
+		justify-content: flex-end;
+		align-self: center;
+	}
+
+	.copyright {
+		align-self: start;
+		padding-top: 0.25rem;
+	}
+
+	.social-logos {
+		justify-self: end;
+		align-self: start;
+		padding-top: 0.25rem;
+	}
 }
 
-/* Footer grid — desktop */
-@media (min-width: var(--breakpoint-lg)) {
+@media (min-width: 1024px) {
+
+	.footer-container {
+		grid-template-columns: minmax(18rem, 1.3fr) auto;
+		row-gap: 1.5rem;
+	}
+}
+
+
+
+/* =========================================================
+	Base Layer
+	Global tokens, resets, focus styles
+========================================================= */
+
+@layer base {
+
+	:root {
+		/* Page */
+		--page-bg: #f5f7f8;
+		--surface: #ffffff;
+
+		/* Text */
+		--text-main: #1f2933;
+		--text-soft: #52606d;
+
+		/* Borders / shadows */
+		--border-soft: rgba(15, 23, 42, 0.08);
+		--shadow-soft: 0 24px 60px rgba(15, 23, 42, 0.12);
+
+		/* Default theme tokens */
+		--theme-band: #355b7a;
+		--theme-hero: #dbeaf6;
+		--theme-hero-strong: #9fc2df;
+		--theme-accent: #355b7a;
+		--theme-accent-strong: #27445d;
+		--theme-card: #ffffff;
+		--theme-panel: #f8fafc;
+		--theme-keyword: rgba(255, 255, 255, 0.24);
+		--theme-icon: rgba(255, 255, 255, 0.22);
+
+		/* Resource section defaults */
+		--theme-resource-panel: #72a7d6;
+		--theme-resource-panel-strong: #5d98cd;
+		--theme-resource-heading: #ffffff;
+		--theme-resource-title: #ffffff;
+		--theme-resource-text: #111827;
+		--theme-resource-icon: #ffffff;
+	}
+
+	html {
+		scroll-behavior: smooth;
+	}
+
+	body {
+		margin: 0;
+		background-color: var(--page-bg);
+		color: var(--text-main);
+		font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+		min-width: 360px;
+	}
+
+	a {
+		color: inherit;
+		text-decoration: none;
+	}
+
+	img {
+		display: block;
+		max-width: 100%;
+	}
+
+	a:focus-visible,
+	button:focus-visible {
+		outline: 3px solid #111827;
+		outline-offset: 3px;
+		border-radius: 0.5rem;
+	}
+
+	:focus:not(:focus-visible) {
+		outline: none;
+	}
+}
+
+
+/* =========================================================
+	Theme Variants
+	Only CSS custom property overrides — must stay in
+	@layer components so they override :root without
+	needing higher specificity.
+========================================================= */
+
+@layer components {
+
+	.theme-advanced {
+		--theme-band: #9a3f57;
+		--theme-hero: #f4d6df;
+		--theme-hero-strong: #d68ca0;
+		--theme-accent: #9a3f57;
+		--theme-accent-strong: #6f2940;
+		--theme-card: #fffafb;
+		--theme-panel: #fff3f6;
+		--theme-keyword: rgba(255, 255, 255, 0.24);
+		--theme-icon: rgba(255, 255, 255, 0.18);
+	}
+
+	.theme-english {
+		--theme-band: #1f4e79;
+		--theme-hero: #d7e7f4;
+		--theme-hero-strong: #89afd1;
+		--theme-accent: #245985;
+		--theme-accent-strong: #183b5c;
+		--theme-card: #ffffff;
+		--theme-panel: #f3f8fc;
+		--theme-keyword: rgba(255, 255, 255, 0.34);
+		--theme-icon: rgba(255, 255, 255, 0.22);
+
+		--theme-resource-panel: #8bb7dc;
+		--theme-resource-panel-strong: #76a8d3;
+		--theme-resource-heading: #12324d;
+		--theme-resource-title: #12324d;
+		--theme-resource-text: #111827;
+		--theme-resource-icon: #ffffff;
+	}
+
+	.theme-intermediate {
+		--theme-band: #5f7263;
+		--theme-hero: #dfe8df;
+		--theme-hero-strong: #b4c1b4;
+		--theme-accent: #5f7263;
+		--theme-accent-strong: #4b5b4e;
+		--theme-card: #ffffff;
+		--theme-panel: #f8faf8;
+		--theme-keyword: rgba(255, 255, 255, 0.24);
+		--theme-icon: rgba(255, 255, 255, 0.18);
+	}
+
+	.theme-friends {
+		--theme-band: #9a6a2f;
+		--theme-hero: #f0e0c8;
+		--theme-hero-strong: #d7b07c;
+		--theme-accent: #9a6a2f;
+		--theme-accent-strong: #7d5220;
+		--theme-card: #fffdf9;
+		--theme-panel: #fffaf3;
+		--theme-keyword: rgba(255, 255, 255, 0.18);
+		--theme-icon: rgba(255, 255, 255, 0.16);
+	}
+
+	.theme-exchange {
+		--theme-band: #8a5e2d;
+		--theme-hero: #ead7bf;
+		--theme-hero-strong: #c89f6a;
+		--theme-accent: #8a5e2d;
+		--theme-accent-strong: #6d491f;
+		--theme-card: #fffdf8;
+		--theme-panel: #fff9f1;
+		--theme-keyword: rgba(255, 255, 255, 0.18);
+		--theme-icon: rgba(255, 255, 255, 0.16);
+	}
+
+	.theme-advising {
+		--theme-band: #4b7c7a;
+		--theme-hero: #dcefee;
+		--theme-hero-strong: #a9cfcb;
+		--theme-accent: #4b7c7a;
+		--theme-accent-strong: #355f5d;
+		--theme-card: #ffffff;
+		--theme-panel: #f7fbfb;
+		--theme-keyword: rgba(255, 255, 255, 0.24);
+		--theme-icon: rgba(255, 255, 255, 0.18);
+	}
+}
+
+
+/* =========================================================
+	Utilities
+	Single-class, variant-compatible utilities via @utility.
+========================================================= */
+
+/* Colour convenience classes */
+@utility bg-theme-band {
+	background-color: var(--theme-band);
+}
+
+@utility text-theme-accent {
+	color: var(--theme-accent);
+}
+
+@utility text-theme-strong {
+	color: var(--theme-accent-strong);
+}
+
+/* Text wrapping */
+@utility text-balance {
+	text-wrap: balance;
+}
+
+/* Hero poster gradient background */
+@utility poster-bg {
+	background:
+		linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0)),
+		linear-gradient(135deg, var(--theme-hero) 0%, var(--theme-hero-strong) 100%);
+}
+
+/* Hero card panel */
+@utility hero-card {
+	background-color: var(--theme-card);
+	border-color: var(--border-soft);
+	box-shadow: var(--shadow-soft);
+}
+
+/* Fee / info panel */
+@utility panel-box {
+	background-color: var(--theme-panel);
+	border-color: var(--border-soft);
+}
+
+/* Footer — single-class utilities */
+@utility site-footer {
+	background-color: var(--theme-band);
+	color: white;
+	padding-top: 1.5rem;
+	padding-bottom: 1.5rem;
+}
+
+@utility uclogo {
+	grid-area: uclogo;
+	align-self: flex-start;
+}
+
+@utility square-logos {
+	grid-area: square-logos;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 0.75rem;
+	align-self: flex-start;
+}
+
+@utility social-logos {
+	grid-area: social-logos;
+	display: flex;
+	width: 100%;
+	justify-content: flex-end;
+}
+
+@utility copyright {
+	grid-area: copyright;
+}
+
+@utility footer-tagline {
+	margin: 0;
+	font-size: 1rem;
+	font-style: italic;
+	line-height: 1.5rem;
+}
+
+@utility footer-container {
+	max-width: 72rem;
+	margin-left: auto;
+	margin-right: auto;
+	display: grid;
+	padding-left: 1rem;
+	padding-right: 1rem;
+	gap: 1.5rem;
+	align-items: flex-start;
+	grid-template-areas:
+		"uclogo square-logos"
+		"social-logos social-logos"
+		"copyright copyright";
+	grid-template-columns: minmax(0, 1fr) auto;
+}
+
+@utility cam-global-footer-links {
+	margin: 0;
+	display: flex;
+	width: fit-content;
+	list-style: none;
+	flex-wrap: wrap;
+	justify-content: flex-end;
+	gap: 0.75rem;
+	padding: 0;
+}
+
+@utility cam-social-media-icon {
+	display: flex;
+	height: 2.5rem;
+	width: 2.5rem;
+	align-items: center;
+	justify-content: center;
+	border-radius: 9999px;
+	border: 1px solid rgba(255, 255, 255, 0.18);
+	background-color: rgba(255, 255, 255, 0.04);
+	transition: background-color 0.2s ease, opacity 0.2s ease;
+}
+
+@utility poster-stage-conversation {
+	position: relative;
+	overflow: hidden;
+}
+
+@utility poster-stage-advising {
+	position: relative;
+	overflow: hidden;
+}
+
+
+/* =========================================================
+	Descendant and pseudo-class rules
+	These cannot be expressed as @utility (multi-element
+	or state selectors). Plain CSS, no layer needed.
+========================================================= */
+
+.footer-tagline {
+	/* md:text-lg responsive override */
+	@media (min-width: 768px) {
+		font-size: 1.125rem;
+	}
+}
+
+.copy,
+.developed {
+	margin: 0;
+	font-size: 0.875rem;
+	line-height: 1.5rem;
+}
+
+.developed a {
+	text-decoration: underline;
+	text-underline-offset: 2px;
+}
+
+.cam-social-media-icon:hover {
+	background-color: rgba(255, 255, 255, 0.12);
+}
+
+.cam-social-media-icon svg,
+.lclogo svg {
+	display: block;
+	width: 1.2rem;
+	height: 1.2rem;
+}
+
+.lclogo svg {
+	width: 2.1rem;
+	height: 2.1rem;
+}
+
+/* Footer logo switching */
+.site-footer .uclogo,
+.site-footer .uclogo a {
+	align-items: flex-start;
+	justify-content: flex-start;
+}
+
+.site-footer .uclogo a {
+	display: inline-flex;
+	max-width: 100%;
+}
+
+.site-footer .uclogo img {
+	width: auto;
+	height: auto;
+	max-width: 100%;
+	object-fit: contain;
+	vertical-align: top;
+}
+
+/* Mobile: vertical white logo only */
+.site-footer .uclogo .footer-logo-desktop-white {
+	display: none;
+}
+
+.site-footer .uclogo .footer-logo-mobile-white {
+	display: block;
+	max-width: 150px;
+}
+
+/* Tablet and up: horizontal white logo only */
+@media (min-width: 641px) {
+
+	.site-footer .uclogo .footer-logo-desktop-white {
+		display: block;
+		max-width: 340px;
+	}
+
+	.site-footer .uclogo .footer-logo-mobile-white {
+		display: none;
+	}
+}
+
+/* Footer grid responsive adjustments */
+@media (min-width: 768px) {
+
+	.footer-container {
+		grid-template-areas:
+			"uclogo square-logos"
+			"copyright social-logos";
+		grid-template-columns: 1fr auto;
+		align-items: start;
+		row-gap: 0.75rem;
+		column-gap: 1.5rem;
+	}
+
+	.square-logos {
+		justify-content: flex-end;
+		align-self: center;
+	}
+
+	.copyright {
+		align-self: start;
+		padding-top: 0.25rem;
+	}
+
+	.social-logos {
+		justify-self: end;
+		align-self: start;
+		padding-top: 0.25rem;
+	}
+}
+
+@media (min-width: 1024px) {
+
 	.footer-container {
 		grid-template-columns: minmax(18rem, 1.3fr) auto;
 		row-gap: 1.5rem;
