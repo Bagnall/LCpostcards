@@ -7,13 +7,6 @@
 	<title>Conversation Exchange</title>
 	<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 	<script type="module" src="./src/scripts/main.js"></script>
-	<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag() { dataLayer.push(arguments); }
-		gtag('js', new Date());
-
-		gtag('config', 'G-1PVV9JSR1M');
-	</script>
 </head>
 
 <body class="min-h-screen bg-page text-main theme-exchange">
@@ -52,25 +45,7 @@
 
 	</div>
 	<script src="https://cc.cdn.civiccomputing.com/9/cookieControl-9.x.min.js"></script>
-	<script>
-		var config = {
-			apiKey: '9c3bd2a68162ba67b19f07e540747675bd136e66',
-			product: 'community',
-			optionalCookies: [
-				{
-					name: 'analytics',
-					label: 'Analytics',
-					description: 'Analytical cookies help us to improve our website by collecting and reporting information on its usage.',
-					cookies: [],
-					onAccept: function () { },
-					onRevoke: function () { }
-				}
-			],
-			position: 'LEFT',
-			theme: 'LIGHT'
-		};
-		CookieControl.load(config);
-	</script>
+	<script src="./src/scripts/cookies.js"></script>
 </body>
 
 </html>
