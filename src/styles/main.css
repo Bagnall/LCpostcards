@@ -848,6 +848,8 @@ lc-info-card {
 	display: inline-flex;
 	align-items: center;
 	gap: 4px;
+	text-decoration: underline;
+	text-underline-offset: 3px
 }
 
 .external-link-icon {
