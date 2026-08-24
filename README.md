@@ -80,19 +80,41 @@ before overwriting it, so page content stays readable in the HTML source.
 
 ## Typography
 
-- **Feijoa** for headlines and pull quotes, used sparingly — page `h1`s and
-  the index card titles, nothing else.
-- **Open Sans** for everything read at length, from Google Fonts.
+- **Feijoa** for headlines and quotes, used sparingly — page `h1`s and the
+  index card titles, nothing else.
+- **Open Sans** for everything read at length.
 - Nothing on screen is below **16px**; long-form text runs at **150%** line
-  height. Both are driven by the `--text-body` / `--leading-body` tokens, so
+  height. Both come from the `--text-body` / `--leading-body` tokens, so
   prose sizing changes in one place.
 
-Feijoa is a licensed Klim Type Foundry face with no CDN, so it has to be
-self-hosted. Until the webfont files are licensed, pages fall back to
-Iowan Old Style / Palatino / Georgia. **To enable it:** add
-`feijoa-medium.woff2` and `feijoa-bold.woff2` to `public/assets/fonts/` and
-uncomment the `@font-face` block near the top of `src/styles/main.css`. It is
-left commented so the build does not 404 on files that are not in the repo.
+Feijoa ships Medium (500) and Bold (700) only — **there is no 600 weight**, so
+display type must use `font-medium` or `font-bold`, never `font-semibold`.
+Open Sans has 400/600/700, so `font-semibold` is fine on body text.
+
+### Webfonts
+
+Both families are self-hosted from `public/fonts/`, so there is no
+third-party font request. Only `.woff2` is served (~352 KB for all six
+faces). The licensed OTF/TTF originals live in `fonts-src/`, outside the
+served directory, so they are not copied into every deploy.
+
+After adding or replacing an original in `fonts-src/`, regenerate the served
+woff2:
+
+```bash
+pip install fonttools brotli
+python -c "
+from fontTools.ttLib import TTFont
+import glob, os
+for f in glob.glob('fonts-src/*.[ot]tf'):
+    t = TTFont(f); t.flavor = 'woff2'
+    t.save('public/fonts/' + os.path.splitext(os.path.basename(f))[0] + '.woff2')
+"
+```
+
+Then add a matching `@font-face` rule in `src/styles/main.css`. The two faces
+needed for first paint (`OpenSans-Regular`, `Feijoa-Bold`) are preloaded from
+each page's `<head>`.
 
 ## Notes
 

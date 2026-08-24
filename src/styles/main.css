@@ -39,8 +39,7 @@
 	--band: var(--color-teal-900), var(--color-teal-600), var(--color-teal-100);
 
 	/* Feijoa for headlines and pull quotes, used sparingly. Open Sans for
-		anything read at length. See the @font-face block below — Feijoa is a
-		licensed face and is not served from a CDN. */
+		anything read at length. Both self-hosted — see the @font-face block. */
 	--font-display: "Feijoa", "Iowan Old Style", Palatino, "Palatino Linotype",
 		Georgia, "Times New Roman", serif;
 	--font-sans: "Open Sans", "Segoe UI", ui-sans-serif, system-ui,
@@ -53,19 +52,24 @@
 
 
 /* =========================================================
-	Feijoa — licensed webfont, self-hosted
+	Webfonts — self-hosted
 
-	Feijoa is a Klim Type Foundry face with no CDN, so the webfont files
-	have to be licensed and committed to public/assets/fonts/. Until they
-	are, the serif fallback stack in --font-display is used.
+	Both families are served from public/fonts/ rather than a CDN: Feijoa is
+	a licensed Klim Type Foundry face with no CDN at all, and self-hosting
+	Open Sans alongside it means no third-party request and one less thing
+	for the cookie notice to account for.
 
-	TO ENABLE: drop feijoa-medium.woff2 and feijoa-bold.woff2 into
-	public/assets/fonts/ and uncomment this block. Left commented so the
-	build does not 404 on fonts that are not in the repo yet.
+	Only woff2 is served (~340 KB for all six faces). The licensed OTF/TTF
+	originals live in fonts-src/, outside the served directory, so they are
+	not copied into every deploy. Regenerating: see README.
+
+	Feijoa ships Medium (500) and Bold (700) only — there is no 600, so
+	display type must use font-medium or font-bold, never font-semibold.
+========================================================= */
 
 @font-face {
 	font-family: "Feijoa";
-	src: url("/assets/fonts/feijoa-medium.woff2") format("woff2");
+	src: url("/fonts/Feijoa-Medium.woff2") format("woff2");
 	font-weight: 500;
 	font-style: normal;
 	font-display: swap;
@@ -73,12 +77,43 @@
 
 @font-face {
 	font-family: "Feijoa";
-	src: url("/assets/fonts/feijoa-bold.woff2") format("woff2");
+	src: url("/fonts/Feijoa-MediumItalic.woff2") format("woff2");
+	font-weight: 500;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Feijoa";
+	src: url("/fonts/Feijoa-Bold.woff2") format("woff2");
 	font-weight: 700;
 	font-style: normal;
 	font-display: swap;
 }
-========================================================= */
+
+@font-face {
+	font-family: "Open Sans";
+	src: url("/fonts/OpenSans-Regular.woff2") format("woff2");
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Open Sans";
+	src: url("/fonts/OpenSans-SemiBold.woff2") format("woff2");
+	font-weight: 600;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Open Sans";
+	src: url("/fonts/OpenSans-Bold.woff2") format("woff2");
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
 
 
 /* =========================================================

@@ -191,7 +191,7 @@ class LcInfoCard extends HTMLElement {
 
 		this.innerHTML = `
 			<div class="self-center">
-				<h1 class="m-0 font-display text-3xl/tight font-semibold text-balance text-ink md:text-4xl/tight lg:text-[2.75rem]/tight">
+				<h1 class="m-0 font-display text-3xl/tight font-bold text-balance text-ink md:text-4xl/tight lg:text-[2.75rem]/tight">
 					${heading}
 				</h1>
 				${lede ? `<p class="mt-5 mb-0 text-lg/(--leading-body) font-bold text-pretty text-ink">${lede}</p>` : ''}
