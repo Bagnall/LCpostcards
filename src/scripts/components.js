@@ -107,17 +107,20 @@ class LcHeader extends HTMLElement {
 			<header role="banner" aria-label="${label}"
 				class="band-wash relative isolate overflow-hidden text-white">
 
-				<div class="band-plate absolute inset-y-0 left-0 -z-10 w-[min(60%,34rem)]"></div>
-				<div class="dot-field absolute inset-0 -z-10 text-white/15"></div>
+				<div class="band-plate absolute inset-y-0 left-0 -z-10 w-[min(62%,36rem)]"></div>
 
-				<div class="mx-auto flex min-h-18 max-w-6xl items-center justify-between gap-4 px-4 py-3">
+				<div class="mx-auto flex min-h-36 max-w-6xl items-center justify-between gap-4 px-4 py-6 md:min-h-44 md:py-8">
 					<a href="${SITE_URL}/">
 						<img src="${logoSrc}" width="680" height="118"
 							alt="University of Cambridge Language Centre"
-							class="h-10 w-auto md:h-13">
+							class="h-11 w-auto md:h-14">
 					</a>
+
+					<!-- Given the same box height as the logo, so items-center above
+						aligns the two tops; items-start then drops the text just
+						under that top edge, as printed. -->
 					<a href="${SITE_URL}/"
-						class="hidden whitespace-nowrap text-base font-semibold hover:underline hover:underline-offset-4 sm:block">
+						class="hidden h-11 items-start whitespace-nowrap pt-1 text-lg font-semibold text-band hover:underline hover:underline-offset-4 sm:flex md:h-14 md:text-xl">
 						www.langcen.cam.ac.uk
 					</a>
 				</div>
@@ -130,17 +133,18 @@ class LcHeader extends HTMLElement {
 /**
  * <lc-hero-poster>
  *
- * The illustration stage — the left half of the printed card. Renders the
- * line drawing over the dot field and pale diagonal wash. Decorative
- * unless artwork-alt is supplied.
+ * The left column of the printed card: the page title, then the line drawing
+ * beneath it over a dot field. No panel or border — on the cards the drawing
+ * sits directly on the paper.
  *
+ * @attr {string} heading     - Page h1, set in the display serif
  * @attr {string} artwork-src - URL of the illustration (SVG)
  * @attr {string} artwork-alt - Alt text; empty means decorative
  */
 // ---------------------------------------------------------------------------
 class LcHeroPoster extends HTMLElement {
 	static get observedAttributes() {
-		return ['artwork-src', 'artwork-alt'];
+		return ['heading', 'artwork-src', 'artwork-alt'];
 	}
 
 	connectedCallback() {
@@ -152,18 +156,26 @@ class LcHeroPoster extends HTMLElement {
 	}
 
 	render() {
+		const heading = escapeHTML(this.getAttribute('heading') ?? '');
 		const src = escapeHTML(this.getAttribute('artwork-src') ?? '');
 		const alt = escapeHTML(this.getAttribute('artwork-alt') ?? '');
 
 		this.innerHTML = `
-			<div class="relative isolate flex h-full min-h-72 items-center justify-center overflow-hidden rounded-4xl border border-ink/10 bg-white p-6 shadow-lg shadow-ink/10 md:min-h-96 md:p-8"
-				${alt === '' ? 'aria-hidden="true"' : ''}>
+			<div class="relative isolate">
 
-				<div class="stage-wash absolute inset-0 -z-20 bg-teal-50/70"></div>
-				<div class="dot-field absolute inset-0 -z-10 text-ink/15"></div>
+				<!-- The dot field runs the height of the column, starting flush
+					under the header so it sits behind the title as well as the
+					drawing. The negative top offset cancels the section padding. -->
+				<div class="dot-field absolute inset-x-0 -top-8 bottom-0 -z-10 text-dot md:-top-12"></div>
 
-				<img src="${src}" alt="${alt}" decoding="async"
-					class="relative w-full max-w-xl">
+				<h1 class="m-0 font-display text-3xl/tight font-bold text-balance text-ink md:text-4xl/tight lg:text-[2.75rem]/tight">
+					${heading}
+				</h1>
+
+				<div class="mt-8 flex items-center justify-center"
+					${alt === '' ? 'aria-hidden="true"' : ''}>
+					<img src="${src}" alt="${alt}" decoding="async" class="w-full">
+				</div>
 			</div>`;
 	}
 }
@@ -177,24 +189,19 @@ class LcHeroPoster extends HTMLElement {
  * between the tags and is re-injected into .card-body — the Light DOM slot
  * pattern: capture this.innerHTML before overwriting it.
  *
- * @attr {string} heading - Page h1, set in the display serif
- * @attr {string} lede    - Bold opening line, as printed on the card
- * @slot default          - Body prose
+ * @attr {string} lede - Bold opening line, as printed on the card
+ * @slot default        - Body prose
  */
 // ---------------------------------------------------------------------------
 class LcInfoCard extends HTMLElement {
 	connectedCallback() {
 		// Capture authored slot HTML before we overwrite it
 		const bodyHTML = this.innerHTML;
-		const heading = escapeHTML(this.getAttribute('heading') ?? '');
 		const lede = escapeHTML(this.getAttribute('lede') ?? '');
 
 		this.innerHTML = `
-			<div class="self-center">
-				<h1 class="m-0 font-display text-3xl/tight font-bold text-balance text-ink md:text-4xl/tight lg:text-[2.75rem]/tight">
-					${heading}
-				</h1>
-				${lede ? `<p class="mt-5 mb-0 text-lg/(--leading-body) font-bold text-pretty text-ink">${lede}</p>` : ''}
+			<div>
+				${lede ? `<p class="m-0 text-lg/(--leading-body) font-bold text-pretty text-ink">${lede}</p>` : ''}
 				<div class="card-body mt-4">${bodyHTML}</div>
 			</div>`;
 
