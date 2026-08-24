@@ -38,9 +38,47 @@
 	/* Three gradient stops for the header wash */
 	--band: var(--color-teal-900), var(--color-teal-600), var(--color-teal-100);
 
-	--font-display: "Libre Baskerville", "Iowan Old Style", Palatino, Georgia, serif;
-	--font-sans: "Source Sans 3", "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+	/* Feijoa for headlines and pull quotes, used sparingly. Open Sans for
+		anything read at length. See the @font-face block below — Feijoa is a
+		licensed face and is not served from a CDN. */
+	--font-display: "Feijoa", "Iowan Old Style", Palatino, "Palatino Linotype",
+		Georgia, "Times New Roman", serif;
+	--font-sans: "Open Sans", "Segoe UI", ui-sans-serif, system-ui,
+		-apple-system, sans-serif;
+
+	/* Body copy: 17px at 150% line height. Nothing on screen goes below 16px. */
+	--text-body: 1.0625rem;
+	--leading-body: 1.5;
 }
+
+
+/* =========================================================
+	Feijoa — licensed webfont, self-hosted
+
+	Feijoa is a Klim Type Foundry face with no CDN, so the webfont files
+	have to be licensed and committed to public/assets/fonts/. Until they
+	are, the serif fallback stack in --font-display is used.
+
+	TO ENABLE: drop feijoa-medium.woff2 and feijoa-bold.woff2 into
+	public/assets/fonts/ and uncomment this block. Left commented so the
+	build does not 404 on fonts that are not in the repo yet.
+
+@font-face {
+	font-family: "Feijoa";
+	src: url("/assets/fonts/feijoa-medium.woff2") format("woff2");
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Feijoa";
+	src: url("/assets/fonts/feijoa-bold.woff2") format("woff2");
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
+========================================================= */
 
 
 /* =========================================================
@@ -55,7 +93,7 @@
 	}
 
 	body {
-		@apply m-0 min-w-80 bg-paper font-sans text-ink antialiased;
+		@apply m-0 min-w-80 bg-paper font-sans text-base/(--leading-body) text-ink antialiased;
 	}
 
 	a {
@@ -233,7 +271,7 @@
 		their own — the stacking rule at the end of this block has to win. */
 
 	.card-body :where(p) {
-		@apply m-0 text-[1.0625rem]/relaxed text-ink-soft text-pretty;
+		@apply m-0 text-(length:--text-body)/(--leading-body) text-ink-soft text-pretty;
 	}
 
 	.card-body :where(strong) {
@@ -245,7 +283,7 @@
 	}
 
 	.card-body :where(li) {
-		@apply relative pl-[1.125rem] text-[1.0625rem]/relaxed text-ink-soft;
+		@apply relative pl-[1.125rem] text-(length:--text-body)/(--leading-body) text-ink-soft;
 	}
 
 	.card-body :where(li)::before {
@@ -259,7 +297,7 @@
 
 	/* The fee panel is a table of rates, not a bulleted list */
 	.card-body :where(.panel li) {
-		@apply flex justify-between gap-4 pl-0 text-base text-ink;
+		@apply flex justify-between gap-4 pl-0 text-base/(--leading-body) text-ink;
 	}
 
 	.card-body :where(.panel li)::before {

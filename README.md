@@ -78,10 +78,24 @@ before overwriting it, so page content stays readable in the HTML source.
 - The designer's source PDFs and asset archive live in `design/`, which is
   gitignored — ask the design team for a copy.
 
+## Typography
+
+- **Feijoa** for headlines and pull quotes, used sparingly — page `h1`s and
+  the index card titles, nothing else.
+- **Open Sans** for everything read at length, from Google Fonts.
+- Nothing on screen is below **16px**; long-form text runs at **150%** line
+  height. Both are driven by the `--text-body` / `--leading-body` tokens, so
+  prose sizing changes in one place.
+
+Feijoa is a licensed Klim Type Foundry face with no CDN, so it has to be
+self-hosted. Until the webfont files are licensed, pages fall back to
+Iowan Old Style / Palatino / Georgia. **To enable it:** add
+`feijoa-medium.woff2` and `feijoa-bold.woff2` to `public/assets/fonts/` and
+uncomment the `@font-face` block near the top of `src/styles/main.css`. It is
+left commented so the build does not 404 on files that are not in the repo.
+
 ## Notes
 
-- Type is Libre Baskerville (display) over Source Sans 3, loaded from Google
-  Fonts with local serif/sans fallbacks.
 - Cookie consent is CookieControl; the config in `src/scripts/cookies.js` is
   imported by `main.js` so Vite bundles it. Loading it as a separate classic
   `<script src="./src/…">` breaks the production build.

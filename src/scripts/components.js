@@ -100,7 +100,7 @@ class LcHeader extends HTMLElement {
 
 		this.innerHTML = `
 			<a href="#main-content"
-				class="absolute left-4 -top-full z-50 rounded-b bg-teal-900 px-4 py-2 text-sm font-semibold text-white transition-[top] focus:top-0">
+				class="absolute left-4 -top-full z-50 rounded-b bg-teal-900 px-4 py-2 text-base font-semibold text-white transition-[top] focus:top-0">
 				Skip to main content
 			</a>
 
@@ -117,7 +117,7 @@ class LcHeader extends HTMLElement {
 							class="h-10 w-auto md:h-13">
 					</a>
 					<a href="${SITE_URL}/"
-						class="hidden whitespace-nowrap text-sm font-semibold hover:underline hover:underline-offset-4 sm:block md:text-base">
+						class="hidden whitespace-nowrap text-base font-semibold hover:underline hover:underline-offset-4 sm:block">
 						www.langcen.cam.ac.uk
 					</a>
 				</div>
@@ -191,10 +191,10 @@ class LcInfoCard extends HTMLElement {
 
 		this.innerHTML = `
 			<div class="self-center">
-				<h1 class="m-0 font-display text-3xl/tight font-bold text-balance text-ink md:text-4xl/tight lg:text-[2.75rem]/tight">
+				<h1 class="m-0 font-display text-3xl/tight font-semibold text-balance text-ink md:text-4xl/tight lg:text-[2.75rem]/tight">
 					${heading}
 				</h1>
-				${lede ? `<p class="mt-5 mb-0 text-lg/relaxed font-bold text-pretty text-ink">${lede}</p>` : ''}
+				${lede ? `<p class="mt-5 mb-0 text-lg/(--leading-body) font-bold text-pretty text-ink">${lede}</p>` : ''}
 				<div class="card-body mt-4">${bodyHTML}</div>
 			</div>`;
 
@@ -221,7 +221,7 @@ class LcFees extends HTMLElement {
 
 		this.innerHTML = `
 			<div class="panel rounded-xl border border-l-4 border-ink/10 border-l-accent bg-teal-50 px-4 py-3">
-				<p class="m-0 text-base font-bold text-ink">${title}</p>
+				<p class="m-0 text-base/(--leading-body) font-bold text-ink">${title}</p>
 				<ul class="mt-2.5 grid list-none gap-1 p-0">
 					<li><span>Students</span><span>&pound;35</span></li>
 					<li><span>Staff</span><span>&pound;45</span></li>
@@ -272,7 +272,7 @@ class LcFooter extends HTMLElement {
 				<div class="mx-auto grid max-w-6xl gap-6 px-4 md:grid-cols-[minmax(0,1fr)_auto] md:items-center">
 
 					<div>
-						<p class="m-0 text-[1.0625rem]/snug font-bold">${tagline}</p>
+						<p class="m-0 text-(length:--text-body)/(--leading-body) font-bold">${tagline}</p>
 						<div class="mt-3 flex flex-wrap items-center gap-2">
 							<a href="${SITE_URL}/culp/culp-index.html"
 								title="Language Centre" aria-label="Language Centre courses"
@@ -283,14 +283,14 @@ class LcFooter extends HTMLElement {
 						</div>
 					</div>
 
-					<div class="flex flex-col gap-1 text-[0.9375rem] md:items-end md:text-right [&_a:hover]:underline [&_a:hover]:underline-offset-4">
+					<div class="flex flex-col gap-1 text-base/(--leading-body) md:items-end md:text-right [&_a:hover]:underline [&_a:hover]:underline-offset-4">
 						<a href="mailto:${email}">${email}</a>
 						${phone ? `<a href="tel:+441223335058">${phone}</a>` : ''}
 						<span>Language Centre, University of Cambridge</span>
 						<span>Downing Place, Cambridge, CB2 3EL</span>
 					</div>
 
-					<div class="flex flex-wrap justify-between gap-x-6 gap-y-2 border-t border-current/25 pt-4 text-xs opacity-90 md:col-span-full [&_p]:m-0">
+					<div class="flex flex-wrap justify-between gap-x-6 gap-y-2 border-t border-current/25 pt-4 text-base/(--leading-body) opacity-90 md:col-span-full [&_p]:m-0">
 						<p>&copy; 2026 University of Cambridge</p>
 						<p><a href="${SITE_URL}/" class="hover:underline hover:underline-offset-4">www.langcen.cam.ac.uk</a></p>
 					</div>
