@@ -4,60 +4,43 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>English Intermediate and Advanced Conversation Hours</title>
-	<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+	<title>English Intermediate and Advanced Conversation Hours | Cambridge Language Centre</title>
+	<meta name="description" content="Informal, in-person English conversation groups at the University of Cambridge Language Centre, supported by an English teacher.">
+	<link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&family=Source+Sans+3:wght@400;600;700&display=swap">
 	<script type="module" src="./src/scripts/main.js"></script>
 </head>
 
-<body class="min-h-screen bg-page text-main theme-english">
-	<div class="min-h-screen flex flex-col">
+<body class="flex min-h-screen flex-col theme-english">
 
-		<lc-header page-label="English Intermediate and Advanced Conversation Hours site header"></lc-header>
+	<lc-header page-label="English Intermediate and Advanced Conversation Hours — site header"></lc-header>
 
-		<main id="main-content" aria-label="English Intermediate and Advanced Conversation Hours content">
+	<main id="main-content" class="grow">
+		<section class="mx-auto grid w-full max-w-6xl gap-8 px-4 py-8 md:py-12 lg:grid-cols-2 lg:items-stretch">
 
-			<section class="py-8 md:py-10">
-				<div class="max-w-6xl mx-auto w-full px-4 grid gap-8 items-stretch lg:grid-cols-[var(--cols-hero)]">
+			<lc-hero-poster artwork-src="./assets/illustrations/english-study-group.svg" artwork-alt=""></lc-hero-poster>
 
-					<lc-hero-poster artwork-src="./assets/conversation.svg" artwork-alt=""></lc-hero-poster>
-
-					<lc-info-card
-						heading="English Intermediate and Advanced Conversation Hours"
-						subheading="Improve your spoken English by discussing a range of subjects.">
-
-			<p class="text-soft mt-4 text-base md:text-lg leading-7">These informal,
-			in-person group sessions
-			are supported by an English teacher.</p>
-			<ul class="text-main mt-5 space-y-2 pl-5 list-disc">
-			<li class="leading-7">Intermediate: suitable for B1+ learners</li>
-			<li class="leading-7">Advanced: suitable for C1+ learners</li>
-			</ul>
-			<div class="mt-4 rounded-2xl p-4 border text-right panel-box">
-			<ul class="text-main space-y-1 font-semibold text-base md:text-lg">
-			<li>The fee includes six sessions per term:</li>
-			<li>Students: £35</li>
-			<li>Staff: £45</li>
-			<li>General public: £55</li>
-			</ul>
-			</div>
-			<p class="text-soft mt-4 text-base md:text-lg leading-7">
-			<strong>Book your place online:</strong> <a
-			class="font-semibold underline underline-offset-2"
-			href="https://www.langcen.cam.ac.uk/advising/speaking-practice.html">langcen.cam.ac.uk/advising/speaking-practice</a>
-			</p>
-
-					</lc-info-card>
-
+			<lc-info-card heading="English Intermediate and Advanced Conversation Hours" lede="Improve your spoken English by discussing a range of subjects.">
+				<p>These informal, in-person group sessions are supported by an English teacher.</p>
+				<ul><li>Intermediate: suitable for B1+ learners</li><li>Advanced: suitable for C1+ learners</li></ul>
+				<lc-fees></lc-fees>
+				<div class="flex flex-wrap items-center justify-between gap-4">
+					<a class="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-base font-bold !text-white !no-underline transition hover:bg-accent-strong hover:-translate-y-0.5" href="https://www.langcen.cam.ac.uk/advising/speaking-practice.html">Book your place online</a>
+					<img src="./assets/illustrations/british-mug.svg" alt="" aria-hidden="true"
+						class="w-20 shrink-0 md:w-24">
 				</div>
-			</section>
+			</lc-info-card>
 
-		</main>
+		</section>
+	</main>
 
-		<lc-footer></lc-footer>
+	<lc-footer></lc-footer>
 
-	</div>
 	<script src="https://cc.cdn.civiccomputing.com/9/cookieControl-9.x.min.js"></script>
-	<script src="./src/scripts/cookies.js"></script>
+	<script type="module" src="./src/scripts/cookies.js"></script>
 </body>
 
 </html>

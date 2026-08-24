@@ -49,3 +49,6 @@ coverage/
 
 /public/build/
 /public/assets/build/
+# Designer source material (large; kept locally, not in the repo)
+
+design/

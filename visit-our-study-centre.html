@@ -4,70 +4,45 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Visit our Study Centre</title>
-	<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+	<title>Visit our Study Centre | Cambridge Language Centre</title>
+	<meta name="description" content="The John Trim Centre: a library of language learning resources for over 180 languages at the University of Cambridge Language Centre.">
+	<link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&family=Source+Sans+3:wght@400;600;700&display=swap">
 	<script type="module" src="./src/scripts/main.js"></script>
 </head>
 
-<body class="min-h-screen bg-page text-main theme-english">
-	<div class="min-h-screen flex flex-col">
+<body class="flex min-h-screen flex-col theme-study-centre">
 
-		<lc-header page-label="Visit our Study Centre site header"></lc-header>
+	<lc-header page-label="Visit our Study Centre — site header"></lc-header>
 
-		<main id="main-content" aria-label="Visit our Study Centre content">
+	<main id="main-content" class="grow">
+		<section class="mx-auto grid w-full max-w-6xl gap-8 px-4 py-8 md:py-12 lg:grid-cols-2 lg:items-stretch">
 
-			<section class="py-8 md:py-10">
-				<div class="max-w-6xl mx-auto w-full px-4 grid gap-8 items-stretch lg:grid-cols-[var(--cols-hero)]">
+			<lc-hero-poster artwork-src="./assets/illustrations/library.svg" artwork-alt=""></lc-hero-poster>
 
-					<lc-hero-poster artwork-src="./assets/globe.svg" artwork-alt="" artwork-class="advising-globe-image w-auto h-full"></lc-hero-poster>
-
-					<lc-info-card
-						heading="Visit our Study Centre"
-						subheading="The John Trim Centre">
-
-			<p class="text-soft mt-4 text-base md:text-lg leading-7">The John Trim
-			Centre offers:</p>
-			<ul class="text-main mt-3 space-y-2 pl-5 list-disc">
-			<li class="leading-7">A library of language learning resources for over 180 languages</li>
-			<li class="leading-7">Supervision rooms (book at Reception)</li>
-			<li class="leading-7">Membership options for the general public</li>
-			</ul>
-			<p class="text-soft mt-4 text-base md:text-lg leading-7">We are open on
-			weekdays:</p>
-			<ul class="text-main mt-3 space-y-2 pl-5 list-disc">
-			<li class="leading-7">09:00–19:00 (term time)</li>
-			<li class="leading-7">09:00–18:00 (outside of term)</li>
-			</ul>
-			<p class="text-soft mt-4 text-base md:text-lg leading-7">Language Centre,
-			University of Cambridge, Downing Place, Cambridge, CB2 3EL.</p>
-			<p class="text-soft mt-2 text-base md:text-lg leading-7">Contact us: <a
-			class="underline underline-offset-2"
-			href="mailto:enquiries@langcen.cam.ac.uk">enquiries@langcen.cam.ac.uk</a> or 01223 335
-			058.</p>
-			<p class="text-soft mt-4 text-base md:text-lg leading-7">For further information go to: <a
-			class="font-semibold underline underline-offset-2"
-			href="https://www.langcen.cam.ac.uk/index.html">langcen.cam.ac.uk</a></p>
-
-					</lc-info-card>
-
+			<lc-info-card heading="Visit our Study Centre" lede="The John Trim Centre offers:">
+				<ul><li>A library of language learning resources for over 180 languages</li><li>Supervision rooms (book at Reception)</li><li>Membership options for the general public</li></ul>
+				<p><strong>We are open on weekdays:</strong></p>
+				<ul><li>09:00&ndash;19:00 (term time)</li><li>09:00&ndash;18:00 (outside of term)</li></ul>
+				<p>Language Centre, University of Cambridge, Downing Place, Cambridge, CB2 3EL</p>
+				<p><strong>Contact us:</strong> <a href="tel:+441223335058">01223 335 058</a></p>
+				<div class="flex flex-wrap items-center justify-between gap-4">
+					<a class="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-base font-bold !text-white !no-underline transition hover:bg-accent-strong hover:-translate-y-0.5" href="mailto:enquiries@langcen.cam.ac.uk">Email the Study Centre</a>
+					<img src="./assets/illustrations/books.svg" alt="" aria-hidden="true"
+						class="w-20 shrink-0 md:w-24">
 				</div>
-			</section>
+			</lc-info-card>
 
-		<section class="pb-8 md:pb-10">
-				<div class="max-w-6xl mx-auto w-full px-4">
-				<div class="rounded-[2rem] overflow-hidden shadow-xl mx-auto max-w-[480px]">
-						<img src="/assets/map.jpg" alt="Map showing the location of the University of Cambridge Language Centre, Downing Place, Cambridge CB2 3EL" class="w-full h-auto block">
-					</div>
-				</div>
-			</section>
+		</section>
+	</main>
 
-		</main>
+	<lc-footer></lc-footer>
 
-		<lc-footer></lc-footer>
-
-	</div>
 	<script src="https://cc.cdn.civiccomputing.com/9/cookieControl-9.x.min.js"></script>
-	<script src="./src/scripts/cookies.js"></script>
+	<script type="module" src="./src/scripts/cookies.js"></script>
 </body>
 
 </html>

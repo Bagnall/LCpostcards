@@ -4,55 +4,40 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Language Advising</title>
-	<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+	<title>Language Advising | Cambridge Language Centre</title>
+	<meta name="description" content="Book a free 30-minute one-to-one language advising appointment at the University of Cambridge Language Centre.">
+	<link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&family=Source+Sans+3:wght@400;600;700&display=swap">
 	<script type="module" src="./src/scripts/main.js"></script>
 </head>
 
-<body class="min-h-screen bg-page text-main theme-intermediate">
-	<div class="min-h-screen flex flex-col">
+<body class="flex min-h-screen flex-col theme-advising">
 
-		<lc-header page-label="Language Advising site header"></lc-header>
+	<lc-header page-label="Language Advising — site header"></lc-header>
 
-		<main id="main-content" aria-label="Language Advising content">
+	<main id="main-content" class="grow">
+		<section class="mx-auto grid w-full max-w-6xl gap-8 px-4 py-8 md:py-12 lg:grid-cols-2 lg:items-stretch">
 
-			<section class="py-8 md:py-10">
-				<div class="max-w-6xl mx-auto w-full px-4 grid gap-8 items-stretch lg:grid-cols-[var(--cols-hero)]">
+			<lc-hero-poster artwork-src="./assets/illustrations/language-advising.svg" artwork-alt=""></lc-hero-poster>
 
-					<lc-hero-poster artwork-src="./assets/globe.svg" artwork-alt=""
-						artwork-class="advising-globe-image w-auto h-full"></lc-hero-poster>
-
-					<lc-info-card heading="Language Advising"
-						subheading="Book a free, 30-minute, one-to-one appointment">
-
-						<p class="text-soft mt-4 text-base md:text-lg leading-7">Book a free,
-							30-minute, one-to-one appointment to:</p>
-						<ul class="text-main mt-5 space-y-2 pl-5 list-disc">
-							<li class="leading-7">evaluate your progress</li>
-							<li class="leading-7">decide on your learning goals</li>
-							<li class="leading-7">discuss strategies for independent studies and formulate a plan</li>
-						</ul>
-						<p class="text-soft mt-4 text-base md:text-lg leading-7">To book your
-							appointment (virtual or in-person), email <a
-								class="font-semibold underline underline-offset-2"
-								href="mailto:enquiries@langcen.cam.ac.uk">enquiries@langcen.cam.ac.uk</a>.</p>
-						<p class="text-soft mt-4 text-base md:text-lg leading-7">For further information go to: <a
-								class="font-semibold underline underline-offset-2"
-								href="https://www.langcen.cam.ac.uk/advising/learning.html#2">langcen.cam.ac.uk/advising/learning.html</a>
-						</p>
-
-					</lc-info-card>
-
+			<lc-info-card heading="Language Advising" lede="Book a free, 30-minute, one-to-one appointment to:">
+				<ul><li>Evaluate your progress</li><li>Decide on your learning goals</li><li>Discuss strategies for independent studies and formulate a plan</li></ul>
+				<p>Appointments are available virtually or in person.</p>
+				<div class="flex flex-wrap items-center justify-between gap-4">
+					<a class="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-base font-bold !text-white !no-underline transition hover:bg-accent-strong hover:-translate-y-0.5" href="mailto:enquiries@langcen.cam.ac.uk">Email us to book your appointment</a>
 				</div>
-			</section>
+			</lc-info-card>
 
-		</main>
+		</section>
+	</main>
 
-		<lc-footer></lc-footer>
+	<lc-footer></lc-footer>
 
-	</div>
 	<script src="https://cc.cdn.civiccomputing.com/9/cookieControl-9.x.min.js"></script>
-	<script src="./src/scripts/cookies.js"></script>
+	<script type="module" src="./src/scripts/cookies.js"></script>
 </body>
 
 </html>
