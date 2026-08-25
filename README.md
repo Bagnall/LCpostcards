@@ -71,12 +71,12 @@ CSS custom property; everything else is a Tailwind utility in the markup.
 `<lc-info-card>` uses the light-DOM slot pattern: it captures `innerHTML`
 before overwriting it, so page content stays readable in the HTML source.
 
-## Header band textures
+## Band textures
 
 Each card has a Cambridge "expressive" texture full-bleed behind it; the header
-band is the top slice. `scripts/build-band-textures.py` cuts that slice from the
-designer's artwork into `public/assets/bands/<page>.webp` (10 files, 76 KB all
-told — flat gradients compress well).
+band is the top slice and the footer band the bottom slice.
+`scripts/build-band-textures.py` cuts both into `public/assets/bands/`
+(20 files, 122 KB all told — flat gradients compress well).
 
 Two things the script exists to handle:
 
@@ -84,33 +84,59 @@ Two things the script exists to handle:
   FOGRA39. Browsers cannot render CMYK JPEGs, and a naive channel conversion
   turns the brand teal **green**, so each is converted to sRGB through its
   embedded profile.
-- It reports the luminance of each band's left and right edge, which is what
-  sets `--band-plate` and `--color-band` per theme. Several bands are mid-tone,
-  where neither white nor ink clears WCAG AA on its own, so those get a
-  darkening plate behind the reversed wordmark; bands that are already dark set
-  `--band-plate: 0`. The URL takes ink on pale bands and white on dark ones.
-
-Re-run it after the designer supplies new artwork:
+- It reports, per band and per side, whether white or dark text clears WCAG AA
+  against the artwork, and prints the `--footer-base` colour for each theme.
 
 ```bash
 pip install pillow
-python scripts/build-band-textures.py
+python scripts/build-band-textures.py    # band slices + contrast report
+python scripts/build-logos.py            # web-sized wordmarks
 ```
 
-Footers stay on the flat theme teal. The printed footers are the bottom slice of
-the same texture, but several run dark on one side and pale on the other, so no
-single text colour clears AA across them.
+### Keeping text legible over the artwork
 
-The **dot field** is built in CSS, not shipped as an image: a
-`radial-gradient` at the printed pitch and dot size (11pt pitch, 3.3pt dot on a
-420pt card, scaled to the content column) in the sampled `--color-dot`, with a
-45-degree `mask-image` fading it out towards the bottom right.
+The cards switch the **Cambridge wordmark** rather than tinting it: the reversed
+one on dark bands, the positive one on pale. `--logo-white` / `--logo-dark` hold
+the `display` values that do that, so the theme block is the single source of
+truth and the pages carry no logo markup of their own.
+
+Two mid-tone header bands (English, Language Advising) suit neither variant —
+white reaches only 4.1:1 — so those set `--band-plate` to darken the left of the
+band behind the wordmark. Every other theme sets it to 0 and shows the artwork
+undimmed.
+
+Footers need more care, because they carry four lines of contact detail and a
+meta row, and several textures **change tone part way along a line** — so no
+single text colour is legible for the whole line. Four themes therefore lay a
+`--footer-scrim`: paper-coloured to flatten a dark wedge under ink text,
+ink-coloured to flatten a bright one under white. The other six show the
+artwork at full strength.
+
+The footer paints its strip **full width at the top edge** rather than with
+`cover`, and extends downward in `--footer-base` (the strip's own bottom edge).
+`cover` over-scaled and cropped the right of the strip — taking the printed
+notch with it — and cropped far worse on mobile, where the footer is much taller.
+
+There is **no notch in the CSS**. On the three cards that have one it is part of
+the printed artwork, so it arrives with the footer texture; the other seven
+never had one.
+
+Every one of these values comes from measuring the rendered page — screenshotting
+each page with the text hidden, sampling the artwork inside each text box, and
+computing the contrast ratio — not from choosing by eye.
+
+The **dot field** is built in CSS, not shipped as an image: a `radial-gradient`
+at the printed pitch and dot size (11pt pitch, 3.3pt dot on a 420pt card, scaled
+to the content column) in the sampled `--color-dot`, with a 45-degree
+`mask-image` fading it out towards the bottom right.
 
 ## Assets
 
 - `public/assets/illustrations/` — the designer's line drawings, as supplied
   in the 2026 asset pack, renamed to kebab-case.
-- `public/assets/bands/` — generated; see above.
+- `public/assets/bands/` and `public/assets/logo-*.webp` — generated; see above.
+- `logos-src/` — the supplied wordmark PNGs (~130 KB each), kept out of the
+  served directory. `build-logos.py` writes 24 KB WebP versions at render size.
 - Superseded 2025 placeholder artwork is kept in `old_files/assets-2025/`.
 - The designer's source PDFs and asset archive live in `design/`, which is
   gitignored — ask the design team for a copy.

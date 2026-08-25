@@ -4,9 +4,9 @@
  * Light DOM only. No Shadow DOM. No external dependencies.
  * Imported from src/scripts/main.js — Vite bundles it automatically.
  *
- * The markup here mirrors the 2026 printed A5 postcards: a diagonal
- * teal header band, a two-column body (illustration | copy) and a
- * teal footer band with the centred notch.
+ * The markup here mirrors the 2026 printed A5 postcards: a deep textured
+ * header band, a 60/40 body (title and illustration | copy) and a textured
+ * footer band.
  */
 
 // ---------------------------------------------------------------------------
@@ -76,12 +76,11 @@ const SOCIALS = [
  * wordmark on the left, site URL on the right — exactly as printed.
  *
  * @attr {string} page-label - aria-label for the inner <header>
- * @attr {string} logo-src   - URL for the reversed wordmark image
  */
 // ---------------------------------------------------------------------------
 class LcHeader extends HTMLElement {
 	static get observedAttributes() {
-		return ['page-label', 'logo-src'];
+		return ['page-label'];
 	}
 
 	connectedCallback() {
@@ -94,9 +93,6 @@ class LcHeader extends HTMLElement {
 
 	render() {
 		const label = escapeHTML(this.getAttribute('page-label') ?? 'Site header');
-		const logoSrc = escapeHTML(
-			this.getAttribute('logo-src') ?? './assets/ucam_language_centre_h_white.png'
-		);
 
 		this.innerHTML = `
 			<a href="#main-content"
@@ -111,9 +107,12 @@ class LcHeader extends HTMLElement {
 
 				<div class="mx-auto flex min-h-36 max-w-6xl items-center justify-between gap-4 px-4 py-6 md:min-h-44 md:py-8">
 					<a href="${SITE_URL}/">
-						<img src="${logoSrc}" width="680" height="118"
+						<img src="./assets/logo-white.webp" width="802" height="112"
 							alt="University of Cambridge Language Centre"
-							class="h-11 w-auto md:h-14">
+							class="logo-white h-11 w-auto md:h-14">
+						<img src="./assets/logo-dark.webp" width="776" height="112"
+							alt="" aria-hidden="true"
+							class="logo-dark h-11 w-auto md:h-14">
 					</a>
 
 					<!-- Given the same box height as the logo, so items-center above
@@ -243,8 +242,9 @@ class LcFees extends HTMLElement {
 /**
  * <lc-footer>
  *
- * Teal band with the printed notch: tagline and logos left, contact details
- * right, copyright underneath.
+ * The card's footer artwork: tagline and logos left, contact details right,
+ * copyright underneath. A paper scrim over the artwork keeps every line on
+ * one consistent ground — see --footer-scrim.
  *
  * @attr {string} tagline - Footer tagline (default: "Connecting language learners")
  * @attr {string} email   - Contact email address
@@ -272,9 +272,9 @@ class LcFooter extends HTMLElement {
 
 		this.innerHTML = `
 			<footer role="contentinfo"
-				class="relative mt-auto bg-footer pt-7 pb-8 text-footer-text">
+				class="footer-wash relative isolate mt-auto pt-8 pb-8 text-footer-text">
 
-				<div class="notch absolute top-0 left-1/2 h-6 w-13 -translate-x-1/2 bg-notch"></div>
+				<div class="footer-scrim absolute inset-0 -z-10"></div>
 
 				<div class="mx-auto grid max-w-6xl gap-6 px-4 md:grid-cols-[minmax(0,1fr)_auto] md:items-center">
 
@@ -297,7 +297,7 @@ class LcFooter extends HTMLElement {
 						<span>Downing Place, Cambridge, CB2 3EL</span>
 					</div>
 
-					<div class="flex flex-wrap justify-between gap-x-6 gap-y-2 border-t border-current/25 pt-4 text-base/(--leading-body) opacity-90 md:col-span-full [&_p]:m-0">
+					<div class="flex flex-wrap justify-between gap-x-6 gap-y-2 border-t border-current/30 pt-4 text-base/(--leading-body) md:col-span-full [&_p]:m-0">
 						<p>&copy; 2026 University of Cambridge</p>
 						<p><a href="${SITE_URL}/" class="hover:underline hover:underline-offset-4">www.langcen.cam.ac.uk</a></p>
 					</div>
