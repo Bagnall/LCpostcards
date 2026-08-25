@@ -134,7 +134,7 @@ to the content column) in the sampled `--color-dot`, with a 45-degree
 
 ## Assets
 
-Page weight runs from **126 KB to 298 KB** compressed (176 KB average). Nothing
+Page weight runs from **126 KB to 197 KB** compressed (166 KB average). Nothing
 here is served from a third party.
 
 - `public/assets/illustrations/` — the designer's line drawings, renamed to
@@ -144,6 +144,11 @@ here is served from a third party.
   982 KB of compressed SVG down to 510 KB. That is safe at these viewBox sizes
   — before and after differ only in edge antialiasing, indistinguishable even
   magnified 4x on the most detailed drawing.
+- Two of the printed cards carry a "Visit our Study Centre" side, so there are
+  two drawings for that one page. It uses `study-centre.svg`, the reception
+  scene from the Portuguese pack, which is what the designer intended.
+  `library.svg` is the English pack's alternative — kept, because an
+  unreferenced illustration costs a visitor nothing; it is never downloaded.
 - `globe.webp` is the one illustration served as a bitmap. It is drawn from
   many small paths, so it costs 49 KB compressed as a vector against 11 KB as
   a WebP at twice its 96px rendered size. Every other drawing is cheaper as a
@@ -255,7 +260,7 @@ to the content column) in the sampled `--color-dot`, with a 45-degree
 
 ## Assets
 
-Page weight runs from **126 KB to 298 KB** compressed (176 KB average). Nothing
+Page weight runs from **126 KB to 197 KB** compressed (166 KB average). Nothing
 here is served from a third party.
 
 - `public/assets/illustrations/` — the designer's line drawings, renamed to
@@ -265,6 +270,11 @@ here is served from a third party.
   982 KB of compressed SVG down to 510 KB. That is safe at these viewBox sizes
   — before and after differ only in edge antialiasing, indistinguishable even
   magnified 4x on the most detailed drawing.
+- Two of the printed cards carry a "Visit our Study Centre" side, so there are
+  two drawings for that one page. It uses `study-centre.svg`, the reception
+  scene from the Portuguese pack, which is what the designer intended.
+  `library.svg` is the English pack's alternative — kept, because an
+  unreferenced illustration costs a visitor nothing; it is never downloaded.
 - `globe.webp` is the one illustration served as a bitmap. It is drawn from
   many small paths, so it costs 49 KB compressed as a vector against 11 KB as
   a WebP at twice its 96px rendered size. Every other drawing is cheaper as a
@@ -319,8 +329,8 @@ each page's `<head>`.
 
 `text/html`, `text/css`, `application/javascript` and **`image/svg+xml`** must
 be served gzipped or brotli-compressed. The SVG illustrations are text and
-compress by roughly 70%: without it, Visit our Study Centre ships 673 KB
-instead of 298 KB. WebP and woff2 are already compressed and need no help.
+compress by roughly 70%: without it, the heaviest page ships 338 KB instead
+of 197 KB. WebP and woff2 are already compressed and need no help.
 
 ## Notes
 
