@@ -91,9 +91,14 @@
 	Open Sans alongside it means no third-party request and one less thing
 	for the cookie notice to account for.
 
-	Only woff2 is served (~340 KB for all six faces). The licensed OTF/TTF
-	originals live in fonts-src/, outside the served directory, so they are
-	not copied into every deploy. Regenerating: see README.
+	The served files are Latin subsets in woff2 (~127 KB for all six faces,
+	79 KB for the four a page loads). The licensed OTF/TTF originals live in
+	fonts-src/, outside the served directory. Regenerate with
+	scripts/build-fonts.py.
+
+	unicode-range matches the subset, so a character outside it falls back to
+	the next font in the stack and the browser does not fetch the file at all
+	for such text.
 
 	Feijoa ships Medium (500) and Bold (700) only — there is no 600, so
 	display type must use font-medium or font-bold, never font-semibold.
@@ -105,6 +110,8 @@
 	font-weight: 500;
 	font-style: normal;
 	font-display: swap;
+	unicode-range: U+0000-00FF, U+0100-017F, U+2000-206F, U+20A0-20BF,
+		U+2122, U+2212, U+FB01-FB02;
 }
 
 @font-face {
@@ -113,6 +120,8 @@
 	font-weight: 500;
 	font-style: italic;
 	font-display: swap;
+	unicode-range: U+0000-00FF, U+0100-017F, U+2000-206F, U+20A0-20BF,
+		U+2122, U+2212, U+FB01-FB02;
 }
 
 @font-face {
@@ -121,6 +130,8 @@
 	font-weight: 700;
 	font-style: normal;
 	font-display: swap;
+	unicode-range: U+0000-00FF, U+0100-017F, U+2000-206F, U+20A0-20BF,
+		U+2122, U+2212, U+FB01-FB02;
 }
 
 @font-face {
@@ -129,6 +140,8 @@
 	font-weight: 400;
 	font-style: normal;
 	font-display: swap;
+	unicode-range: U+0000-00FF, U+0100-017F, U+2000-206F, U+20A0-20BF,
+		U+2122, U+2212, U+FB01-FB02;
 }
 
 @font-face {
@@ -137,6 +150,8 @@
 	font-weight: 600;
 	font-style: normal;
 	font-display: swap;
+	unicode-range: U+0000-00FF, U+0100-017F, U+2000-206F, U+20A0-20BF,
+		U+2122, U+2212, U+FB01-FB02;
 }
 
 @font-face {
@@ -145,6 +160,8 @@
 	font-weight: 700;
 	font-style: normal;
 	font-display: swap;
+	unicode-range: U+0000-00FF, U+0100-017F, U+2000-206F, U+20A0-20BF,
+		U+2122, U+2212, U+FB01-FB02;
 }
 
 

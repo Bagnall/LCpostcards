@@ -88,9 +88,11 @@ Two things the script exists to handle:
   against the artwork, and prints the `--footer-base` colour for each theme.
 
 ```bash
-pip install pillow
+pip install pillow fonttools brotli
+python scripts/build-fonts.py            # Latin-subset woff2
 python scripts/build-band-textures.py    # band slices + contrast report
 python scripts/build-logos.py            # web-sized wordmarks
+bun run assets:svg                       # optimise the illustrations
 ```
 
 ### Keeping text legible over the artwork
@@ -132,8 +134,142 @@ to the content column) in the sampled `--color-dot`, with a 45-degree
 
 ## Assets
 
-- `public/assets/illustrations/` — the designer's line drawings, as supplied
-  in the 2026 asset pack, renamed to kebab-case.
+Page weight runs from **126 KB to 298 KB** compressed (176 KB average). Nothing
+here is served from a third party.
+
+- `public/assets/illustrations/` — the designer's line drawings, renamed to
+  kebab-case and optimised by `svgo.config.mjs` (`bun run assets:svg`). The
+  supplied files are almost entirely path data, so the SVGO defaults save only
+  8%; cutting coordinate precision to one decimal place halves them instead,
+  982 KB of compressed SVG down to 510 KB. That is safe at these viewBox sizes
+  — before and after differ only in edge antialiasing, indistinguishable even
+  magnified 4x on the most detailed drawing.
+- `globe.webp` is the one illustration served as a bitmap. It is drawn from
+  many small paths, so it costs 49 KB compressed as a vector against 11 KB as
+  a WebP at twice its 96px rendered size. Every other drawing is cheaper as a
+  vector and stays one — the large ones are 2-5x cheaper as SVG, and stay
+  crisp at any zoom or pixel density.
+- `public/assets/bands/` and `public/assets/logo-*.webp` — generated; see above.
+- `logos-src/` — the supplied wordmark PNGs (~130 KB each), kept out of the
+  served directory. `build-logos.py` writes 24 KB WebP versions at render size.
+- Superseded 2025 placeholder artwork is kept in `old_files/assets-2025/`.
+- The designer's source PDFs and asset archive live in `design/`, which is
+  gitignored — ask the design team for a copy.
+
+## Typography
+
+- **Feijoa** for headlines and quotes, used sparingly — page `h1`s and the
+  index card titles, nothing else.
+- **Open Sans** for everything read at length.
+- Nothing on screen is below **16px**; long-form text runs at **150%** line
+  height. Both come from the `--text-body` / `--leading-body` tokens, so
+  prose sizing changes in one place.
+
+Feijoa ships Medium (500) and Bold (700) only — **there is no 600 weight**, so
+display type must use `font-medium` or `font-bold`, never `font-semibold`.
+Open Sans has 400/600/700, so `font-semibold` is fine on body text.
+
+### Webfonts
+
+Both families are self-hosted from `public/fonts/`, so there is no third-party
+font request. `scripts/build-fonts.py` converts the licensed OTF/TTF originals
+in `fonts-src/` (kept out of the served directory) to **Latin-subset woff2**:
+
+| | originals | served |
+| --- | --- | --- |
+| all six faces | 957 KB | 127 KB |
+| the four a page loads | 224 KB | 79 KB |
+
+The full faces carry Cyrillic, Greek and Vietnamese, which these pages never
+use. The subset keeps Basic Latin, Latin-1 Supplement and Latin Extended-A —
+so Western and Central European copy still sets correctly — plus general
+punctuation, currency symbols and the ﬁ/ﬂ ligatures. `unicode-range` on each
+`@font-face` matches the subset, so a character outside it falls back to the
+next font in the stack and the browser does not fetch the file at all.
+
+**If these pages ever need a non-Latin script**, widen `UNICODES` in the script
+(or drop the `--unicodes` argument to ship the full faces) and re-run. A
+verification pass confirmed all 94 characters the built pages use are present
+in every subset.
+
+## Band textures
+
+Each card has a Cambridge "expressive" texture full-bleed behind it; the header
+band is the top slice and the footer band the bottom slice.
+`scripts/build-band-textures.py` cuts both into `public/assets/bands/`
+(20 files, 122 KB all told — flat gradients compress well).
+
+Two things the script exists to handle:
+
+- Eight of the ten supplied textures are **CMYK print JPEGs** tagged Coated
+  FOGRA39. Browsers cannot render CMYK JPEGs, and a naive channel conversion
+  turns the brand teal **green**, so each is converted to sRGB through its
+  embedded profile.
+- It reports, per band and per side, whether white or dark text clears WCAG AA
+  against the artwork, and prints the `--footer-base` colour for each theme.
+
+```bash
+pip install pillow fonttools brotli
+python scripts/build-fonts.py            # Latin-subset woff2
+python scripts/build-band-textures.py    # band slices + contrast report
+python scripts/build-logos.py            # web-sized wordmarks
+bun run assets:svg                       # optimise the illustrations
+```
+
+### Keeping text legible over the artwork
+
+The cards switch the **Cambridge wordmark** rather than tinting it: the reversed
+one on dark bands, the positive one on pale. `--logo-white` / `--logo-dark` hold
+the `display` values that do that, so the theme block is the single source of
+truth and the pages carry no logo markup of their own.
+
+Two mid-tone header bands (English, Language Advising) suit neither variant —
+white reaches only 4.1:1 — so those set `--band-plate` to darken the left of the
+band behind the wordmark. Every other theme sets it to 0 and shows the artwork
+undimmed.
+
+Footers need more care, because they carry four lines of contact detail and a
+meta row, and several textures **change tone part way along a line** — so no
+single text colour is legible for the whole line. Four themes therefore lay a
+`--footer-scrim`: paper-coloured to flatten a dark wedge under ink text,
+ink-coloured to flatten a bright one under white. The other six show the
+artwork at full strength.
+
+The footer paints its strip **full width at the top edge** rather than with
+`cover`, and extends downward in `--footer-base` (the strip's own bottom edge).
+`cover` over-scaled and cropped the right of the strip — taking the printed
+notch with it — and cropped far worse on mobile, where the footer is much taller.
+
+There is **no notch in the CSS**. On the three cards that have one it is part of
+the printed artwork, so it arrives with the footer texture; the other seven
+never had one.
+
+Every one of these values comes from measuring the rendered page — screenshotting
+each page with the text hidden, sampling the artwork inside each text box, and
+computing the contrast ratio — not from choosing by eye.
+
+The **dot field** is built in CSS, not shipped as an image: a `radial-gradient`
+at the printed pitch and dot size (11pt pitch, 3.3pt dot on a 420pt card, scaled
+to the content column) in the sampled `--color-dot`, with a 45-degree
+`mask-image` fading it out towards the bottom right.
+
+## Assets
+
+Page weight runs from **126 KB to 298 KB** compressed (176 KB average). Nothing
+here is served from a third party.
+
+- `public/assets/illustrations/` — the designer's line drawings, renamed to
+  kebab-case and optimised by `svgo.config.mjs` (`bun run assets:svg`). The
+  supplied files are almost entirely path data, so the SVGO defaults save only
+  8%; cutting coordinate precision to one decimal place halves them instead,
+  982 KB of compressed SVG down to 510 KB. That is safe at these viewBox sizes
+  — before and after differ only in edge antialiasing, indistinguishable even
+  magnified 4x on the most detailed drawing.
+- `globe.webp` is the one illustration served as a bitmap. It is drawn from
+  many small paths, so it costs 49 KB compressed as a vector against 11 KB as
+  a WebP at twice its 96px rendered size. Every other drawing is cheaper as a
+  vector and stays one — the large ones are 2-5x cheaper as SVG, and stay
+  crisp at any zoom or pixel density.
 - `public/assets/bands/` and `public/assets/logo-*.webp` — generated; see above.
 - `logos-src/` — the supplied wordmark PNGs (~130 KB each), kept out of the
   served directory. `build-logos.py` writes 24 KB WebP versions at render size.
@@ -178,6 +314,13 @@ for f in glob.glob('fonts-src/*.[ot]tf'):
 Then add a matching `@font-face` rule in `src/styles/main.css`. The two faces
 needed for first paint (`OpenSans-Regular`, `Feijoa-Bold`) are preloaded from
 each page's `<head>`.
+
+## Serve compressed
+
+`text/html`, `text/css`, `application/javascript` and **`image/svg+xml`** must
+be served gzipped or brotli-compressed. The SVG illustrations are text and
+compress by roughly 70%: without it, Visit our Study Centre ships 673 KB
+instead of 298 KB. WebP and woff2 are already compressed and need no help.
 
 ## Notes
 
