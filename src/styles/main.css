@@ -66,10 +66,8 @@
 	--footer-scrim: 0;
 	--footer-scrim-colour: var(--color-paper);
 
-	/* Colour the footer extends with below the artwork — the strip's own
-		bottom edge. The strip is painted full width at the footer's top edge
-		so the printed notch survives; the footer then grows taller than the
-		strip's aspect (a lot taller on mobile), and this fills the rest. */
+	/* Fallback behind the footer artwork, sampled from the strip's own bottom
+		edge, so a failed image request still leaves legible text. */
 	--footer-base: #9dd7d6;
 
 	/* Feijoa for headlines and pull quotes, used sparingly. Open Sans for
@@ -340,7 +338,15 @@
 @utility footer-wash {
 	background-color: var(--footer-base);
 	background-image: var(--footer-image);
-	background-size: 100% auto;
+
+	/* Stretched to the footer's full height rather than sized to the strip's
+		own aspect. The footer is intentionally deeper than the printed band —
+		it carries the social icons and a meta row — so `100% auto` left the
+		artwork stopping part way down with the base colour below it, and
+		`cover` cropped the right of the strip and took the printed notch with
+		it. The bands are soft gradient shapes, so a vertical stretch reads
+		cleanly and holds at any footer height, mobile included. */
+	background-size: 100% 100%;
 	background-position: left top;
 	background-repeat: no-repeat;
 }

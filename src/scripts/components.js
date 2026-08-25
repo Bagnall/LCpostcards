@@ -173,7 +173,8 @@ class LcHeroPoster extends HTMLElement {
 
 				<div class="mt-8 flex items-center justify-center"
 					${alt === '' ? 'aria-hidden="true"' : ''}>
-					<img src="${src}" alt="${alt}" decoding="async" class="w-full">
+					<img src="${src}" alt="${alt}" decoding="async"
+						class="max-h-72 w-auto max-w-full md:max-h-100">
 				</div>
 			</div>`;
 	}
