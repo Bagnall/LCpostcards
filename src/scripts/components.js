@@ -100,15 +100,15 @@ class LcHeader extends HTMLElement {
 				Skip to main content
 			</a>
 
-			<header role="banner" aria-label="${label}"
+			<header aria-label="${label}"
 				class="band-wash relative isolate overflow-hidden text-white">
 
 				<div class="band-plate absolute inset-y-0 left-0 -z-10 w-[min(62%,36rem)]"></div>
 
 				<div class="mx-auto flex min-h-36 max-w-6xl items-center justify-between gap-4 px-4 py-6 md:min-h-44 md:py-8">
-					<a href="${SITE_URL}/">
+					<a href="${SITE_URL}/" aria-label="University of Cambridge Language Centre home">
 						<img src="./assets/logo-white.webp" width="802" height="112"
-							alt="University of Cambridge Language Centre"
+							alt="" aria-hidden="true"
 							class="logo-white h-11 w-auto md:h-14">
 						<img src="./assets/logo-dark.webp" width="776" height="112"
 							alt="" aria-hidden="true"
@@ -118,10 +118,9 @@ class LcHeader extends HTMLElement {
 					<!-- Given the same box height as the logo, so items-center above
 						aligns the two tops; items-start then drops the text just
 						under that top edge, as printed. -->
-					<a href="${SITE_URL}/"
-						class="hidden h-11 items-start whitespace-nowrap pt-1 text-lg font-semibold text-band hover:underline hover:underline-offset-4 sm:flex md:h-14 md:text-xl">
+					<span class="hidden h-11 items-start whitespace-nowrap pt-1 text-lg font-semibold text-band sm:flex md:h-14 md:text-xl">
 						www.langcen.cam.ac.uk
-					</a>
+					</span>
 				</div>
 			</header>`;
 	}
@@ -136,7 +135,13 @@ class LcHeader extends HTMLElement {
  * beneath it over a dot field. No panel or border — on the cards the drawing
  * sits directly on the paper.
  *
- * @attr {string} heading     - Page h1, set in the display serif
+ * The h1 is authored in the page rather than passed as an attribute, so it is
+ * in the served HTML: a validator, a crawler that runs no JavaScript, and the
+ * page itself if this bundle fails to load all still see the title. The
+ * component only styles what it finds. `heading` remains as a fallback.
+ *
+ * @slot default          - The page h1
+ * @attr {string} heading - Fallback h1 text if no h1 is slotted
  * @attr {string} artwork-src - URL of the illustration (SVG)
  * @attr {string} artwork-alt - Alt text; empty means decorative
  */
@@ -147,15 +152,25 @@ class LcHeroPoster extends HTMLElement {
 	}
 
 	connectedCallback() {
+		// Capture the authored h1 before the first render overwrites it, so
+		// re-renders on attribute changes still have it.
+		if (this.slottedHeading === undefined) {
+			this.slottedHeading = this.querySelector('h1')?.textContent.trim() ?? '';
+		}
+
 		this.render();
 	}
 
 	attributeChangedCallback() {
-		this.render();
+		if (this.slottedHeading !== undefined) {
+			this.render();
+		}
 	}
 
 	render() {
-		const heading = escapeHTML(this.getAttribute('heading') ?? '');
+		const heading = escapeHTML(
+			this.slottedHeading || (this.getAttribute('heading') ?? '')
+		);
 		const src = escapeHTML(this.getAttribute('artwork-src') ?? '');
 		const alt = escapeHTML(this.getAttribute('artwork-alt') ?? '');
 
@@ -201,7 +216,7 @@ class LcInfoCard extends HTMLElement {
 
 		this.innerHTML = `
 			<div>
-				${lede ? `<p class="m-0 text-lg/(--leading-body) font-bold text-pretty text-ink">${lede}</p>` : ''}
+				${lede ? `<h2 class="m-0 text-lg/(--leading-body) font-bold text-pretty text-ink">${lede}</h2>` : ''}
 				<div class="card-body mt-4">${bodyHTML}</div>
 			</div>`;
 
@@ -264,7 +279,7 @@ class LcFooter extends HTMLElement {
 
 		const socials = SOCIALS.map(([name, href, svg]) => `
 			<li>
-				<a href="${href}" title="${name}" aria-label="Language Centre on ${name}"
+				<a href="${href}" aria-label="Language Centre on ${name}"
 					target="_blank" rel="noopener noreferrer"
 					class="flex size-9 items-center justify-center rounded-full bg-current/15 transition-colors hover:bg-current/30 [&_svg]:size-4 [&_svg]:fill-current">
 					${svg}
@@ -272,7 +287,7 @@ class LcFooter extends HTMLElement {
 			</li>`).join('');
 
 		this.innerHTML = `
-			<footer role="contentinfo"
+			<footer
 				class="footer-wash relative isolate mt-auto pt-8 pb-8 text-footer-text">
 
 				<div class="footer-scrim absolute inset-0 -z-10"></div>
@@ -280,11 +295,11 @@ class LcFooter extends HTMLElement {
 				<div class="mx-auto grid max-w-6xl gap-6 px-4 md:grid-cols-[minmax(0,1fr)_auto] md:items-center">
 
 					<div>
-						<p class="m-0 text-(length:--text-body)/(--leading-body) font-bold">${tagline}</p>
+						<h2 class="m-0 text-(length:--text-body)/(--leading-body) font-bold">${tagline}</h2>
 						<div class="mt-3 flex flex-wrap items-center gap-2">
 							<a href="${SITE_URL}/culp/culp-index.html"
-								title="Language Centre" aria-label="Language Centre courses"
-								class="flex size-11 items-center justify-center [&_svg]:size-full [&_svg]:fill-current">
+								aria-label="Language Centre courses"
+								class="-mt-2 flex h-14 w-11 items-center justify-center [&_svg]:size-full [&_svg]:fill-current">
 								${SVG_LC_LOGO}
 							</a>
 							<ul class="flex list-none flex-wrap items-center gap-2 p-0">${socials}</ul>
