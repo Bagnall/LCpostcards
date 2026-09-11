@@ -267,6 +267,34 @@ class LcFees extends HTMLElement {
  * @attr {string} phone   - Contact telephone; pass "" to hide
  */
 // ---------------------------------------------------------------------------
+// Google's "preferred sources" lets a reader tell Google Search to show this
+// site higher, and more often, in Top stories and related results. This is the
+// documented deeplink form of the feature: a plain outbound link that sets no
+// cookie and loads nothing here, so it stays outside the consent machinery in
+// cookies.js. Google also offers a JavaScript button, but that is a third-party
+// script on every page load before the visitor has decided anything about
+// cookies. The link is documented as the equivalent for exactly that case.
+//
+// The query is the bare site, not a page: only domain- and subdomain-level
+// sites are eligible, so all ten landing pages point at the same one.
+const PREFERRED_SOURCES_URL = 'https://www.google.com/preferences/source?q=www.langcen.cam.ac.uk';
+
+// Google's four-colour G, inline rather than an <img>: a few hundred bytes, and
+// inlining keeps it off the network — the same reasoning as the footer logo.
+// aria-hidden because the link text already says whose button this is.
+const PREFERRED_SOURCES_LINK = `
+	<a href="${PREFERRED_SOURCES_URL}" target="_blank" rel="noopener noreferrer"
+		class="mt-4 inline-flex items-center gap-2 rounded-full bg-current/15 px-3 py-1.5 text-base/(--leading-body) transition-colors hover:bg-current/30">
+		<svg viewBox="0 0 48 48" class="size-[18px] shrink-0" aria-hidden="true" focusable="false">
+			<path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+			<path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+			<path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+			<path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+		</svg>
+		<span>Add us to your preferred sources on Google</span>
+	</a>`;
+
+
 class LcFooter extends HTMLElement {
 	connectedCallback() {
 		this.render();
@@ -281,7 +309,7 @@ class LcFooter extends HTMLElement {
 			<li>
 				<a href="${href}" aria-label="Language Centre on ${name}"
 					target="_blank" rel="noopener noreferrer"
-					class="flex size-9 items-center justify-center rounded-full bg-current/15 transition-colors hover:bg-current/30 [&_svg]:size-4 [&_svg]:fill-current">
+					class="flex size-9 items-center justify-center rounded-full bg-current/15 transition-colors hover:bg-current/30 [&_svg]:size-6 [&_svg]:fill-current">
 					${svg}
 				</a>
 			</li>`).join('');
@@ -304,6 +332,8 @@ class LcFooter extends HTMLElement {
 							</a>
 							<ul class="flex list-none flex-wrap items-center gap-2 p-0">${socials}</ul>
 						</div>
+
+						${PREFERRED_SOURCES_LINK}
 					</div>
 
 					<div class="flex flex-col gap-1 text-base/(--leading-body) md:items-end md:text-right [&_a:hover]:underline [&_a:hover]:underline-offset-4">
