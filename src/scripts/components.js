@@ -27,6 +27,10 @@ function escapeHTML(str) {
 // Shared constants
 // ---------------------------------------------------------------------------
 const SITE_URL = 'https://www.langcen.cam.ac.uk';
+// Also hardcoded, deliberately, in the call-to-action buttons on
+// language-advising.html and visit-our-study-centre.html: those are the pages'
+// primary contact route and must survive the bundle failing to load. Change the
+// address here and you must change it there too.
 const CONTACT_EMAIL = 'enquiries@langcen.cam.ac.uk';
 const CONTACT_PHONE = '01223 335 058';
 
