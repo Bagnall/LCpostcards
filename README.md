@@ -1,8 +1,11 @@
 # Postcards landing pages
 
-QR-code landing pages for the University of Cambridge Language Centre A5
+QR-code landing pages for the University of Cambridge Language Centre A6
 postcards. Each page is the destination of the QR code printed on one card
 side, so a visitor arrives on the page matching the card in their hand.
+
+The printed cards themselves (artwork, build scripts and the printer package)
+live separately in [`print/`](print/README.md).
 
 ## Stack
 

@@ -52,3 +52,8 @@ coverage/
 # Designer source material (large; kept locally, not in the repo)
 
 design/
+
+# Printed postcards: intermediates and the zipped copy of the package are rebuilt by print/scripts
+print/build/
+print/*.zip
+__pycache__/
