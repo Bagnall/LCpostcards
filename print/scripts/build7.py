@@ -114,7 +114,7 @@ BULLETS = ('•', '·', '-')
 
 # Wording changes requested for the print run: (side, keep text up to and including this phrase,
 # or drop the whole line when it contains the phrase)
-TRUNCATE_AFTER = {('LanguageAdvising_StudyAbroad', 1): ['Explore your options by booking a study abroad']}
+TRUNCATE_AFTER = {('LanguageAdvising_StudyAbroad', 1): ['Explore your options by booking a study abroad appointment']}
 DROP_LINES = {('LanguageAdvising_StudyAbroad', 1): ['vle.cam.ac.uk']}
 REPLACE = {('FriendsWithoutFrontiers_Conversation Exchange', 0): [('20- or 30-minute', '20 or 30-minute')],
            ('EnglishConversationHours_VisitOurStudyCentre', 1): [('(outside of term)', '(outside term)')],

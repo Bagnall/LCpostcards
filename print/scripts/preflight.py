@@ -19,11 +19,11 @@ CARDS = [
     ('Card-1', 'English', [('front', 'english-conversation-hours', 'eng-conv', ['bit.ly/4xKLM9h', 'enquiries@langcen.cam.ac.uk'], ['speaking-practice']),
                            ('back', 'visit-our-study-centre', 'lc-visit', ['(outside term)', 'Contact us:', '01223 335 058', 'CB2 3EL'], ['outside of term'])]),
     ('Card-2', 'French', [('front', 'intermediate-conversation-hours', 'inter-conv', ['bit.ly/4xKLM9h'], ['speaking-practice']),
-                          ('back', 'advanced-conversation-hours', 'adv-conv', ['bit.ly/4xKLM9h'], ['www.langcen.cam.ac.uk/\n'])]),
+                          ('back', 'advanced-conversation-hours', 'adv-conv', ['bit.ly/4xKLM9h'], ['www.langcen.cam.ac.uk/ '])]),   # the truncated URL (text is flattened)
     ('Card-3', 'Friends', [('front', 'friends-without-frontiers', 'lc-friends', ['20 or 30-minute', 'bit.ly/4xKLM9h'], ['20-']),
                            ('back', 'conversation-exchange', 'conv-exch', ['conversation@langcen.cam.ac.uk'], ['enquiries@'])]),
     ('Card-4', 'Language', [('front', 'language-advising', 'lc-adv', ['Language Advising'], []),
-                            ('back', 'study-abroad', 'lc-abroad', ['booking a study abroad'], ['Moodle', '4htBwMy', 'vle.cam'])]),
+                            ('back', 'study-abroad', 'lc-abroad', ['study abroad appointment'], ['Moodle', '4htBwMy', 'vle.cam'])]),
     ('Card-5', 'Portuguese', [('front', 'portuguese-conversation-hours', 'port-conv', ['bit.ly/4xKLM9h'], ['speaking-practice']),
                               ('back', 'visit-our-study-centre', 'lc-visit', ['(outside term)', 'Contact us:'], ['outside of term'])]),
 ]
@@ -99,10 +99,11 @@ for (prefix, oprefix, sides), path in zip(CARDS, files):
         check(lo >= 250, '%s: image at %.0f dpi' % (label, lo))
         # ---- text ---------------------------------------------------------------------
         text = p.get_text()
+        flat = ' '.join(text.split()) + ' '     # as read: line breaks become spaces
         for m in must:
-            check(m in text, '%s: missing "%s"' % (label, m))
+            check(m in flat, '%s: missing "%s"' % (label, m))
         for m in mustnot:
-            check(m not in text, '%s: still contains "%s"' % (label, m.strip()))
+            check(m not in flat, '%s: still contains "%s"' % (label, m.strip()))
         check(('bit.ly/' + short) in text, '%s: QR label bit.ly/%s missing' % (label, short))
         # geometry of every text line (in trim coordinates)
         lines = []

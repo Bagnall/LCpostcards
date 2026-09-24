@@ -75,7 +75,7 @@ for f in files:
                 if r.width > 5 and r.height > 5:
                     mindpi = min(mindpi, im[2] / (r.width / 72.0))
 
-rows = ''.join('<tr><td>%d</td><td class="file">%s</td><td>%s</td><td>%s</td><td class="tbc">&nbsp;</td></tr>'
+rows = ''.join('<tr><td>%d</td><td class="file">%s</td><td>%s</td><td>%s</td><td class="tbc">&nbsp;<br/>&nbsp;</td></tr>'
                % (n, name + SUFFIX, front, back) for (pat, n, front, back, name) in CARDS)
 
 doc = pymupdf.open()
@@ -91,10 +91,10 @@ html(p, pymupdf.Rect(M, M, A4W - M, A4H - 14 * PT), """
 <tr><th style="width:26%%">Printing</th><td style="width:74%%">Full colour both sides (4/4)</td></tr>
 <tr><th style="width:26%%">Orientation</th><td style="width:74%%">Both sides are supplied upright. Please print <b>head-to-head</b>: turning the card over
 left-to-right (like a book page) shows the back the right way up.</td></tr>
-<tr><th style="width:26%%">Quantity</th><td style="width:74%%" class="tbc">Per card &ndash; see the table below [to confirm]</td></tr>
-<tr><th style="width:26%%">Stock and finish</th><td style="width:74%%" class="tbc">[to confirm]</td></tr>
-<tr><th style="width:26%%">Delivery date and address</th><td style="width:74%%" class="tbc">[to confirm]</td></tr>
-<tr><th style="width:26%%">Contact</th><td style="width:74%%" class="tbc">[name, email, phone]</td></tr>
+<tr><th style="width:26%%">Quantity</th><td style="width:74%%" class="tbc">Per card &ndash; please complete the table below</td></tr>
+<tr><th style="width:26%%">Stock and finish</th><td style="width:74%%" class="tbc">&nbsp;<br/>&nbsp;</td></tr>
+<tr><th style="width:26%%">Delivery date and address</th><td style="width:74%%" class="tbc">&nbsp;<br/>&nbsp;</td></tr>
+<tr><th style="width:26%%">Contact</th><td style="width:74%%" class="tbc">&nbsp;<br/>&nbsp;</td></tr>
 </table>
 
 <h2>Files</h2>
@@ -136,7 +136,8 @@ for (pat, n, front, back, name), f in zip(CARDS, files):
     for j in range(2):
         x = M + 14 * PT + j * (TW + 8 * PT)
         r = pymupdf.Rect(x, y, x + TW, y + TH)
-        p.show_pdf_page(r, src, j)
+        px = src[j].get_pixmap(dpi=220)
+        p.insert_image(r, stream=px.tobytes('jpeg', jpg_quality=85))
         p.draw_rect(r, color=(0.62, 0.70, 0.69), width=0.4)
         html(p, pymupdf.Rect(x, r.y1 + 0.8 * PT, x + TW, r.y1 + 6 * PT),
              '<p class="small"><b>%s:</b> %s</p>' % ('Front' if j == 0 else 'Back', front if j == 0 else back))
