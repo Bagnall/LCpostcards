@@ -1,8 +1,11 @@
 # Postcards landing pages
 
-QR-code landing pages for the University of Cambridge Language Centre A5
+QR-code landing pages for the University of Cambridge Language Centre A6
 postcards. Each page is the destination of the QR code printed on one card
 side, so a visitor arrives on the page matching the card in their hand.
+
+The printed cards themselves (artwork, build scripts and the printer package)
+live separately in [`print/`](print/README.md).
 
 ## Stack
 
@@ -76,7 +79,9 @@ before overwriting it, so page content stays readable in the HTML source.
 Each card has a Cambridge "expressive" texture full-bleed behind it; the header
 band is the top slice and the footer band the bottom slice.
 `scripts/build-band-textures.py` cuts both into `public/assets/bands/`
-(20 files, 122 KB all told — flat gradients compress well).
+(20 files, 111 KB all told — flat gradients compress well). Friends Without
+Frontiers takes its header from the FGS Intermediate texture, as its printed
+card now does (`HEADER_FROM` in the script).
 
 Two things the script exists to handle:
 
@@ -144,16 +149,23 @@ here is served from a third party.
   982 KB of compressed SVG down to 510 KB. That is safe at these viewBox sizes
   — before and after differ only in edge antialiasing, indistinguishable even
   magnified 4x on the most detailed drawing.
-- Two of the printed cards carry a "Visit our Study Centre" side, so there are
-  two drawings for that one page. It uses `study-centre.svg`, the reception
-  scene from the Portuguese pack, which is what the designer intended.
-  `library.svg` is the English pack's alternative — kept, because an
-  unreferenced illustration costs a visitor nothing; it is never downloaded.
-- `globe.webp` is the one illustration served as a bitmap. It is drawn from
-  many small paths, so it costs 49 KB compressed as a vector against 11 KB as
-  a WebP at twice its 96px rendered size. Every other drawing is cheaper as a
-  vector and stays one — the large ones are 2-5x cheaper as SVG, and stay
-  crisp at any zoom or pixel density.
+- Each page's hero drawing matches its printed card. Where the designer's pack
+  has the card's drawing it is used as supplied (`books.svg`,
+  `studying-abroad.svg`, `fgs-speech-bubble.svg`, `globe.svg`). The rest exist
+  only on the cards, so `print/scripts/export_illustrations.py` exports them
+  from the card PDFs as `card-*.svg`, scaled to ~900 units wide and optimised
+  with the same SVGO settings. The export keeps the designer's RGB colours
+  exactly; the cards look slightly more muted in PDF viewers only because the
+  card PDFs blend in CMYK for print.
+- Visit our Study Centre uses `books.svg`, the drawing on both printed cards
+  that carry that side. `study-centre.svg` (the reception scene) and
+  `library.svg` are kept, unreferenced, because an unused illustration costs a
+  visitor nothing; it is never downloaded.
+- `globe.svg` is the Friends Without Frontiers hero. It is drawn from many
+  small paths, so it is the heaviest drawing (71 KB gzip), but a WebP at twice
+  its hero size costs about the same (65 KB) and would blur on zoom, so it
+  stays a vector like every other drawing. `globe.webp`, the old 96px accent,
+  is no longer referenced.
 - `public/assets/bands/` and `public/assets/logo-*.webp` — generated; see above.
 - `logos-src/` — the supplied wordmark PNGs (~130 KB each), kept out of the
   served directory. `build-logos.py` writes 24 KB WebP versions at render size.
@@ -202,7 +214,9 @@ in every subset.
 Each card has a Cambridge "expressive" texture full-bleed behind it; the header
 band is the top slice and the footer band the bottom slice.
 `scripts/build-band-textures.py` cuts both into `public/assets/bands/`
-(20 files, 122 KB all told — flat gradients compress well).
+(20 files, 111 KB all told — flat gradients compress well). Friends Without
+Frontiers takes its header from the FGS Intermediate texture, as its printed
+card now does (`HEADER_FROM` in the script).
 
 Two things the script exists to handle:
 
@@ -270,16 +284,23 @@ here is served from a third party.
   982 KB of compressed SVG down to 510 KB. That is safe at these viewBox sizes
   — before and after differ only in edge antialiasing, indistinguishable even
   magnified 4x on the most detailed drawing.
-- Two of the printed cards carry a "Visit our Study Centre" side, so there are
-  two drawings for that one page. It uses `study-centre.svg`, the reception
-  scene from the Portuguese pack, which is what the designer intended.
-  `library.svg` is the English pack's alternative — kept, because an
-  unreferenced illustration costs a visitor nothing; it is never downloaded.
-- `globe.webp` is the one illustration served as a bitmap. It is drawn from
-  many small paths, so it costs 49 KB compressed as a vector against 11 KB as
-  a WebP at twice its 96px rendered size. Every other drawing is cheaper as a
-  vector and stays one — the large ones are 2-5x cheaper as SVG, and stay
-  crisp at any zoom or pixel density.
+- Each page's hero drawing matches its printed card. Where the designer's pack
+  has the card's drawing it is used as supplied (`books.svg`,
+  `studying-abroad.svg`, `fgs-speech-bubble.svg`, `globe.svg`). The rest exist
+  only on the cards, so `print/scripts/export_illustrations.py` exports them
+  from the card PDFs as `card-*.svg`, scaled to ~900 units wide and optimised
+  with the same SVGO settings. The export keeps the designer's RGB colours
+  exactly; the cards look slightly more muted in PDF viewers only because the
+  card PDFs blend in CMYK for print.
+- Visit our Study Centre uses `books.svg`, the drawing on both printed cards
+  that carry that side. `study-centre.svg` (the reception scene) and
+  `library.svg` are kept, unreferenced, because an unused illustration costs a
+  visitor nothing; it is never downloaded.
+- `globe.svg` is the Friends Without Frontiers hero. It is drawn from many
+  small paths, so it is the heaviest drawing (71 KB gzip), but a WebP at twice
+  its hero size costs about the same (65 KB) and would blur on zoom, so it
+  stays a vector like every other drawing. `globe.webp`, the old 96px accent,
+  is no longer referenced.
 - `public/assets/bands/` and `public/assets/logo-*.webp` — generated; see above.
 - `logos-src/` — the supplied wordmark PNGs (~130 KB each), kept out of the
   served directory. `build-logos.py` writes 24 KB WebP versions at render size.

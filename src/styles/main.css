@@ -306,7 +306,7 @@
 		--footer-base: #b3dcda;
 		--footer-scrim: 0.35;
 		--band-image: url("/assets/bands/friends-without-frontiers-header.webp");
-		--band-base: #90ccc5;
+		--band-base: #d3eae7;   /* header now cut from the FGS Intermediate texture, as on the card */
 		--footer-image: url("/assets/bands/friends-without-frontiers-footer.webp");
 		--logo-white: block;
 		--logo-dark: none;

@@ -68,6 +68,12 @@ PAGES = {
         'PortugueseConversationHoursIntermediateAndAdvanced_VisitOurStudyCentre/ucam_simple_4_upside_down.jpg',
 }
 
+# Pages whose header band comes from another page's texture. The printed Friends
+# Without Frontiers card uses the FGS Intermediate header background: the supplied
+# one carried leftover layers (a flat teal block and a stray image patch). The
+# footer still comes from the page's own texture.
+HEADER_FROM = {'friends-without-frontiers': 'intermediate-conversation-hours'}
+
 # Where each piece of text sits within its band, as fractions of the band box.
 # Mirrors the layout in src/scripts/components.js.
 REGIONS = {
@@ -150,9 +156,10 @@ def main():
     bases = {}
     for slug, rel in PAGES.items():
         im = to_srgb(os.path.join(SRC, rel))
+        header_im = to_srgb(os.path.join(SRC, PAGES[HEADER_FROM[slug]])) if slug in HEADER_FROM else im
         cells = []
         for kind, span in (('header', HEADER), ('footer', FOOTER)):
-            band = slice_band(im, span)
+            band = slice_band(header_im if kind == 'header' else im, span)
             out = os.path.join(DST, '%s-%s.webp' % (slug, kind))
             band.save(out, 'WEBP', quality=QUALITY, method=6)
             total += os.path.getsize(out)
